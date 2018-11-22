@@ -1,28 +1,17 @@
-var express = require('express');
-var app = express();
+const express = require('express');
+const SocketServer = require('ws').Server;
+const path = require('path');
 
-app.use(express.static('public'));
+const PORT = process.env.PORT || 3000;
+const INDEX = path.join(__dirname, 'chart.html');
 
+const server = express()
+  .use((req, res) => res.sendFile(INDEX) )
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-app.get('/index', function(req, res){
-  console.log(__dirname);
-  res.sendFile(__dirname + "/" + "index.html");
-})
+const wss = new SocketServer({ server });
 
-app.get('/chart', function(req, res){
-        console.log("got req chart");
-        res.sendFile(__dirname + "/" + "chart.html")
-})
-
-app.get('/process_get', function(req, res){
-  response = {
-    first_name:req.query.first_name,
-    last_name:req.query.last_name
-  };
-  console.log(response);
-  res.end(JSON.stringify(response));
-})
-
-var server = app.listen(3000, function(){
-  console.log("Server running on port 3000");
-})
+wss.on('connection', (ws) => {
+  console.log('Client connected');
+  ws.on('close', () => console.log('Client disconnected'));
+});
