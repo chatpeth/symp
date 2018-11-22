@@ -127,7 +127,7 @@
 				var options = {
 					title: cname,
 					height: 600,
-					crosshair: { trigger: 'both', color: 'yellow'}, // Display crosshairs on focus and selection.
+					crosshair: {color: 'yellow'}, // Display crosshairs on focus and selection.
 					// Gives each series an axis that matches the vAxes number below.
 					series: {
 						0: {targetAxisIndex: 0},
@@ -139,8 +139,8 @@
 						1: {title: document.getElementById("parameter2").value.split("-")[1]}
 					},
 					trendlines: {
-						0: {visibleInLegend: true, dataOpacity: 10},	
-						1: {visibleInLegend: true, dataOpacity: 10},	
+						0: {visibleInLegend: true},	
+						1: {visibleInLegend: true},	
 					},
 					pointSize: 1,
 					
