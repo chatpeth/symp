@@ -8,7 +8,7 @@
 		google.charts.setOnLoadCallback(setDate);
 		//google.charts.setOnLoadCallback(drawGID);
 		google.charts.setOnLoadCallback(drawAtDate);
-		
+		var cname = "Production line1";
 		function setDate(){
 			var d = new Date();
 			var _today = d.getFullYear() + "-" + (d.getMonth() + 1).toString() + "-" + d.getDate();
@@ -105,7 +105,7 @@
 			{
 				var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 				var options = {
-					title: 'Production Line1',
+					title: cname,
 					height: 600,
 					crosshair: { trigger: 'both', color: 'yellow'}, // Display crosshairs on focus and selection.
 					// Gives each series an axis that matches the vAxes number below.
@@ -125,7 +125,7 @@
 			{
 				var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
 				var options = {
-					title: 'Lamp',
+					title: cname,
 					height: 600,
 					crosshair: { trigger: 'both', color: 'yellow'}, // Display crosshairs on focus and selection.
 					// Gives each series an axis that matches the vAxes number below.
@@ -150,7 +150,7 @@
 			{
 				var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
 				var options = {
-					title: 'Lamp',
+					title: cname,
 					height: 600,
 					crosshair: { trigger: 'both', color: 'yellow'}, // Display crosshairs on focus and selection.
 					// Gives each series an axis that matches the vAxes number below.
