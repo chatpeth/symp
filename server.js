@@ -1,5 +1,4 @@
 const express = require('express');
-const SocketServer = require('ws').Server;
 const path = require('path');
 
 // Re-write 11232018
@@ -31,13 +30,8 @@ server.get('/lamp', function(req, res){
 	res.sendFile(__dirname + "/" + "chart.html");
 
 });
+
 server.use((req, res) => res.sendFile(INDEX) );
 server.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 
-const wss = new SocketServer({ server });
-
-wss.on('connection', (ws) => {
-  console.log('Client connected');
-  ws.on('close', () => console.log('Client disconnected'));
-});
