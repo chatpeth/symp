@@ -7,12 +7,16 @@ var server = express();
 
 
 const PORT = process.env.PORT || 3000;
-const INDEX = path.join(__dirname, 'chart.html');
+const INDEX = path.join(__dirname, 'index.html');
 
-server.get('/index', function(req, res){
+server.use(express.static('public'));
+
+server.get('/', function(req, res){
   console.log(__dirname);
   res.sendFile(__dirname + "/" + "index.html");
 });
+
+//login
 server.get('/process_get', function(req, res){
   response = {
     first_name:req.query.first_name,
@@ -21,11 +25,15 @@ server.get('/process_get', function(req, res){
   console.log(response);
   res.end(JSON.stringify(response));
 });
+
+server.get('/lamp', function(req, res){
+	console.log("req lamp received");
+	res.sendFile(__dirname + "/" + "chart.html");
+
+});
 server.use((req, res) => res.sendFile(INDEX) );
 server.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-
-  
 
 const wss = new SocketServer({ server });
 
