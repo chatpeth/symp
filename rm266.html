@@ -240,11 +240,8 @@
 				"), AVG(" + arrTq2[0] + "), MIN(" + arrTq2[0] + ") group by D";
 				
 				var dateTq1 = "SELECT A, " + tmpTq1 + "," + tmpTq2 + " WHERE (A > " + "date \'" + startDate + "\') and (A < date \'" + endDate + "\')";
-				console.log("db0x01");
-				console.log(dateTq1);
 			}	
 						
-			console.log("dateTq1= " + dateTq1);
 			var queryString = encodeURIComponent(dateTq1);
 			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + queryString);
 			query.send(handleQueryResponse);
