@@ -3,7 +3,7 @@
 		<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/chatpeth/symp/master/public/images/pie-chart.png">
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 		<script type="text/javascript">
-		var sid = '1xHz_6CtPh5749MrbuCZn4fs7lCsAZ_HoIWy4waylcB0';
+		var sid = '1HZ7um6OUKJZ-Lbk8yGuDG2aaQDf6AjfwSrd_X4_YUcM';
 		google.charts.load("current", {packages:["corechart"]});
 		google.charts.setOnLoadCallback(setDate);
 		//google.charts.setOnLoadCallback(drawGID);
@@ -48,7 +48,7 @@
 			
 			if(tmpTq2 == "hidden")
 			{
-				_analyTq = "SELECT G, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + ") group by G";
+				_analyTq = "SELECT D, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + ") group by D";
 				if(tmpTq1 == "H")
 				{
 					tmpTq = "SELECT A, H WHERE H is NOT NULL";
@@ -61,8 +61,8 @@
 			
 			else
 			{
-				_analyTq = "SELECT G, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + "), MAX(" + arrTq2[0] +
-				"), AVG(" + arrTq2[0] + "), MIN(" + arrTq2[0] + ") group by G";
+				_analyTq = "SELECT D, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + "), MAX(" + arrTq2[0] +
+				"), AVG(" + arrTq2[0] + "), MIN(" + arrTq2[0] + ") group by D";
 				tmpTq = tmpTq + tmpTq1 + ", " + tmpTq2;
 			}
 			
@@ -224,7 +224,7 @@
 			
 			if(tmpTq2 == "hidden")
 			{
-				_analyTq = "SELECT G, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + ") group by G";
+				_analyTq = "SELECT D, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + ") group by D";
 				if(tmpTq1 == "H")
 				{
 					var dateTq1 = "SELECT A, " + tmpTq1 + " WHERE ( H is NOT NULL ) AND ((A > " + "date \'" + startDate + "\') AND (A < date \'" + endDate + "\'))";
@@ -236,8 +236,8 @@
 			}
 			else
 			{
-				_analyTq = "SELECT G, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + "), MAX(" + arrTq2[0] +
-				"), AVG(" + arrTq2[0] + "), MIN(" + arrTq2[0] + ") group by G";
+				_analyTq = "SELECT D, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + "), MAX(" + arrTq2[0] +
+				"), AVG(" + arrTq2[0] + "), MIN(" + arrTq2[0] + ") group by D";
 				var dateTq1 = "SELECT A, " + tmpTq1 + "," + tmpTq2 + " WHERE (A > " + "date \'" + startDate + "\') and (A < date \'" + endDate + "\')";
 			}	
 						
@@ -268,21 +268,15 @@
 	
 	Parameter1:
 	<select id="parameter1">
-		<option value="C-Voltage" >V</option>
-		<option value="B-Current" >I</option>
-		<option value="D-Power Factor" >PF</option>
-		<option value="E-Power" >P</option>
-		<option value="F-Energy" >E</option>
-		<option value="H-Peak" >Peak</option>
+		<option value="B-Temperature" >temp</option>
+		<option value="C-Humidity" >humid</option>
 	</select><br><br>
 	Parameter2:
 	<select id="parameter2">
-		<option value="hidden-blank">hide</option>
-		<option value="B-Current" >I</option>
-		<option value="C-Voltage" >V</option>
-		<option value="D-Power Factor" >PF</option>
-		<option value="E-Power" >P</option>
-		<option value="F-Energy" >E</option>
+		<option value="B-Temperature">humid</option>
+		<option value="C-Humidity" >temp</option>
+		<option value="hidden-blank" >hide</option>
+
 	</select><br><br>
 	
 	Start Date: <input type="text" id="startDate" value="yyyy-mm-dd"><br><br>
