@@ -11,10 +11,10 @@
 		var cname = "Production line1";
 		function setDate(){
 			var d = new Date();
-			var _today = d.getFullYear() + "-" + (d.getMonth() + 1).toString() + "-" + d.getDate();
+			var _today = d.getFullYear() + "-" + (d.getMonth() + 1).toString() + "-" + d.getDate() + " 00:00:00";
 			var tomorrow = new Date();
 			tomorrow.setDate(d.getDate() + 1);
-			var _tomorrow = tomorrow.getFullYear() + "-" + (tomorrow.getMonth() + 1).toString() + "-" + tomorrow.getDate();
+			var _tomorrow = tomorrow.getFullYear() + "-" + (tomorrow.getMonth() + 1).toString() + "-" + tomorrow.getDate() + " 00:00:00";
 						
 			console.log("today= " + _today);
 			console.log("tomorrow= " + _tomorrow);
@@ -224,21 +224,23 @@
 			
 			if(tmpTq2 == "hidden")
 			{
-				_analyTq = "SELECT G, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + ") group by G";
+				_analyTq = "SELECT G, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + ") WHERE (A > datetime \'" + startDate + "\') AND (A < datetime \'" + endDate + "\') group by G";
+				console.log("db0x02");
+				console.log(_analyTq);
 				if(tmpTq1 == "H")
 				{
-					var dateTq1 = "SELECT A, " + tmpTq1 + " WHERE ( H is NOT NULL ) AND ((A > " + "date \'" + startDate + "\') AND (A < date \'" + endDate + "\'))";
+					var dateTq1 = "SELECT A, " + tmpTq1 + " WHERE ( H is NOT NULL ) AND ((A > " + "datetime \'" + startDate + "\') AND (A < datetime \'" + endDate + "\'))";
 				}
 				else
 				{
-					var dateTq1 = "SELECT A, " + tmpTq1 + " WHERE (A > " + "date \'" + startDate + "\') and (A < date \'" + endDate + "\')";
+					var dateTq1 = "SELECT A, " + tmpTq1 + " WHERE (A > " + "datetime \'" + startDate + "\') and (A < datetime \'" + endDate + "\')";
 				}
 			}
 			else
 			{
 				_analyTq = "SELECT G, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + "), MAX(" + arrTq2[0] +
-				"), AVG(" + arrTq2[0] + "), MIN(" + arrTq2[0] + ") group by G";
-				var dateTq1 = "SELECT A, " + tmpTq1 + "," + tmpTq2 + " WHERE (A > " + "date \'" + startDate + "\') and (A < date \'" + endDate + "\')";
+				"), AVG(" + arrTq2[0] + "), MIN(" + arrTq2[0] + ") WHERE (A > datetime \'" + startDate + "\') AND (A < datetime \'" + endDate + "\') group by G";
+				var dateTq1 = "SELECT A, " + tmpTq1 + "," + tmpTq2 + " WHERE (A > " + "datetime \'" + startDate + "\') and (A < datetime \'" + endDate + "\')";
 			}	
 						
 			console.log("dateTq1= " + dateTq1);

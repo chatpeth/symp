@@ -227,11 +227,11 @@
 				_analyTq = "SELECT D, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + ") group by D";
 				if(tmpTq1 == "H")
 				{
-					var dateTq1 = "SELECT A, " + tmpTq1 + " WHERE ( H is NOT NULL ) AND ((A > " + "date \'" + startDate + "\') AND (A < date \'" + endDate + "\'))";
+					var dateTq1 = "SELECT A, " + tmpTq1 + " WHERE ( H is NOT NULL ) AND ((A > " + "datetime \'" + startDate + "\') AND (A < datetime \'" + endDate + "\'))";
 				}
 				else
 				{
-					var dateTq1 = "SELECT A, " + tmpTq1 + " WHERE (A > " + "date \'" + startDate + "\') and (A < date \'" + endDate + "\')";
+					var dateTq1 = "SELECT A, " + tmpTq1 + " WHERE (A > " + "datetime \'" + startDate + "\') and (A < datetime \'" + endDate + "\')";
 				}
 			}
 			else
@@ -239,7 +239,7 @@
 				_analyTq = "SELECT D, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + "), MAX(" + arrTq2[0] +
 				"), AVG(" + arrTq2[0] + "), MIN(" + arrTq2[0] + ") group by D";
 				
-				var dateTq1 = "SELECT A, " + tmpTq1 + "," + tmpTq2 + " WHERE (A > " + "date \'" + startDate + "\') and (A < date \'" + endDate + "\')";
+				var dateTq1 = "SELECT A, " + tmpTq1 + "," + tmpTq2 + " WHERE (A > " + "datetime \'" + startDate + "\') and (A < datetime \'" + endDate + "\')";
 			}	
 						
 			var queryString = encodeURIComponent(dateTq1);
