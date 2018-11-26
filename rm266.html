@@ -204,7 +204,16 @@
 				return;
 			}
 			var data = response.getDataTable();
-			var chart = new google.visualization.ScatterChart(document.getElementById('chart_div3'));
+			// Detect type of chart
+			var chartType = document.getElementById("chartType").value;
+			if(chartType == "line")
+			{
+				var chart = new google.visualization.LineChart(document.getElementById('chart_div3'));
+			}
+			else
+			{
+				var chart = new google.visualization.ScatterChart(document.getElementById('chart_div3'));
+			}
 			var options = {
 					title: "C-RH",
 					height: 600,
