@@ -11,10 +11,10 @@
 		var cname = "Romm 266";
 		function setDate(){
 			var d = new Date();
-			var _today = d.getFullYear() + "-" + (d.getMonth() + 1).toString() + "-" + d.getDate();
+			var _today = d.getFullYear() + "-" + (d.getMonth() + 1).toString() + "-" + d.getDate() + " 00:00:00";
 			var tomorrow = new Date();
 			tomorrow.setDate(d.getDate() + 1);
-			var _tomorrow = tomorrow.getFullYear() + "-" + (tomorrow.getMonth() + 1).toString() + "-" + tomorrow.getDate();
+			var _tomorrow = tomorrow.getFullYear() + "-" + (tomorrow.getMonth() + 1).toString() + "-" + tomorrow.getDate() + " 00:00:00";
 						
 			console.log("today= " + _today);
 			console.log("tomorrow= " + _tomorrow);
