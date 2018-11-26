@@ -25,8 +25,6 @@
 			
 		
 		function drawGID() {
-		
-		
 			var tmpTq = "SELECT A, ";
 			var arrTq1 = document.getElementById("parameter1").value.split("-");
 			var arrTq2 = document.getElementById("parameter2").value.split("-");
@@ -35,6 +33,7 @@
 			var _analyTq;
 			var limit = document.getElementById("limit").value;
 			var offset = document.getElementById("offset").value;
+			var cRhTq;
 			
 			console.log("_analyTq=" + _analyTq);
 			
@@ -69,10 +68,12 @@
 			if(limit == "0")
 			{
 				tmpTq = tmpTq + " OFFSET " + offset;
+				cRhTq = "SELECT B, C OFFSET " + offset;
 			}
 			else
 			{
 				tmpTq = tmpTq + " LIMIT " + limit + " OFFSET " + offset;
+				cRhTq = "SELECT B, C LIMIT " + limit + " OFFSET " + offset;
 			}
 			
 			console.log("tmpTq" + tmpTq);
@@ -82,8 +83,13 @@
 			
 			// Data Analysis
 			var _analyQueryString = encodeURIComponent(_analyTq);
-			var _analyQuery = new google.visualization.Query('http://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + _analyQueryString);
+			var _analyQuery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + _analyQueryString);
 			_analyQuery.send(dataAnalysisResponse);
+			
+			var _cRhQueryString = encodeURIComponent(cRhTq);
+			var _cRhQuery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + _cRhQueryString);
+			_cRhQuery.send(cRhResponse);
+			
 		}
 		
 		function handleQueryResponse(response) {
@@ -191,6 +197,22 @@
 			
 		}
 		
+		function cRhResponse(response)
+		{
+			if (response.isError()) {
+				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+				return;
+			}
+			var data = response.getDataTable();
+			var chart = new google.visualization.ScatterChart(document.getElementById('chart_div3'));
+			var options = {
+					title: "C-RH",
+					height: 600,
+					crosshair: { trigger: 'both', color: 'yellow'}, // Display crosshairs on focus and selection
+			}
+			chart.draw(data, options);
+		}
+		
 		function testQuery(testMsg){
 			console.log("Start query: " + testMsg);
 			var queryString = encodeURIComponent(testMsg);
@@ -232,6 +254,7 @@
 				else
 				{
 					var dateTq1 = "SELECT A, " + tmpTq1 + " WHERE (A > " + "datetime \'" + startDate + "\') and (A < datetime \'" + endDate + "\')";
+					
 				}
 			}
 			else
@@ -250,6 +273,11 @@
 			var _analyQueryString = encodeURIComponent(_analyTq);
 			var _analyQuery = new google.visualization.Query('http://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + _analyQueryString);
 			_analyQuery.send(dataAnalysisResponse);
+			
+			cRhTq = "SELECT B, C WHERE (A > " + "datetime \'" + startDate + "\') and (A < datetime \'" + endDate + "\')";
+			var _cRhQueryString = encodeURIComponent(cRhTq);
+			var _cRhQuery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + _cRhQueryString);
+			_cRhQuery.send(cRhResponse);
 		}
 
 		
@@ -257,8 +285,7 @@
 	</head>
 	<h1 id="logID">Chp Lab V2.2</h1>
 	<body>
-	<div id="chart_div" style="width: 1200px; height: 600px;"></div>
-	<div id="chart_div2" style="width:1200px; height: 300px;"></div>
+	
 	Chart type:
 	<select id="chartType">
 		<option value="scatter">Scatter</option>
@@ -284,11 +311,10 @@
 	<button id="drawDate" onclick="drawAtDate()">Show at specific date</button><br>
 	<p id="numberOfElement">Number of point: </p>
 	Limit: <input type="text" id="limit" value="0"><br><br>
-	Offset: <input type="text" id="offset" value="0"> <br><br>
+	Offset: <input type="text" id="offset" value="0"> <br><br><div id="chart_div" style="width: 1200px; height: 600px;"></div>
+	<div id="chart_div2" style="width:1200px; height: 300px;"></div>
+	<div id="chart_div3" style="width:1200px; height: 300px;"></div><br><br>
 	<button id="drawPoint" onclick="drawGID()">Show at specific points</button><br><br>
-	<form action="/live/powermeter" method="GET">
-		<input type="submit" value="Live view >>">
-	</form>
 
 	
 	</body>
