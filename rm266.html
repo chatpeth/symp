@@ -238,7 +238,10 @@
 			{
 				_analyTq = "SELECT D, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + "), MAX(" + arrTq2[0] +
 				"), AVG(" + arrTq2[0] + "), MIN(" + arrTq2[0] + ") group by D";
+				
 				var dateTq1 = "SELECT A, " + tmpTq1 + "," + tmpTq2 + " WHERE (A > " + "date \'" + startDate + "\') and (A < date \'" + endDate + "\')";
+				console.log("db0x01");
+				console.log(dateTq1);
 			}	
 						
 			console.log("dateTq1= " + dateTq1);
@@ -273,8 +276,8 @@
 	</select><br><br>
 	Parameter2:
 	<select id="parameter2">
-		<option value="">humid</option>
-		<option value="C-Humidity" >temp</option>
+		<option value="C-Humidity">humid</option>
+		<option value="B-Temperature" >temp</option>
 		<option value="hidden-blank" >hide</option>
 
 	</select><br><br>
