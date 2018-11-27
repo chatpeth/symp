@@ -82,7 +82,7 @@
 			
 			// Data Analysis
 			var _analyQueryString = encodeURIComponent(_analyTq);
-			var _analyQuery = new google.visualization.Query('http://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + _analyQueryString);
+			var _analyQuery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + _analyQueryString);
 			_analyQuery.send(dataAnalysisResponse);
 		}
 		
@@ -94,9 +94,9 @@
 			}
 			var data = response.getDataTable();
 			
-			console.log("Number of point: " + data.xg.length);
-			document.getElementById("numberOfElement").innerHTML = "Number of point: " + data.xg.length.toString();
-			
+			//console.log("Number of point: " + data.xg.length);
+			//document.getElementById("numberOfElement").innerHTML = "Number of point: " + data.xg.length.toString();
+			console.log(data);
 			
 			// Detect type of chart
 			var chartType = document.getElementById("chartType").value;
@@ -250,7 +250,7 @@
 			
 			// Data Analysis
 			var _analyQueryString = encodeURIComponent(_analyTq);
-			var _analyQuery = new google.visualization.Query('http://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + _analyQueryString);
+			var _analyQuery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + _analyQueryString);
 			_analyQuery.send(dataAnalysisResponse);
 		}
 
