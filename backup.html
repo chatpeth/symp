@@ -3,12 +3,17 @@
 		<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/chatpeth/symp/master/public/images/pie-chart.png">
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 		<script type="text/javascript">
-		var sid = '1HZ7um6OUKJZ-Lbk8yGuDG2aaQDf6AjfwSrd_X4_YUcM';
+		var sid = '1xHz_6CtPh5749MrbuCZn4fs7lCsAZ_HoIWy4waylcB0';
+		var tmpOffset = 0;
 		google.charts.load("current", {packages:["corechart"]});
 		google.charts.setOnLoadCallback(setDate);
 		//google.charts.setOnLoadCallback(drawGID);
 		google.charts.setOnLoadCallback(drawAtDate);
-		var cname = "Romm 266";
+		google.charts.setOnLoadCallback(getOffset);
+		
+		setInterval(vertualRealtime, 15000);
+		
+		var cname = "Production line1";
 		function setDate(){
 			var d = new Date();
 			var _today = d.getFullYear() + "-" + (d.getMonth() + 1).toString() + "-" + d.getDate() + " 00:00:00";
@@ -33,7 +38,6 @@
 			var _analyTq;
 			var limit = document.getElementById("limit").value;
 			var offset = document.getElementById("offset").value;
-			var cRhTq;
 			
 			console.log("_analyTq=" + _analyTq);
 			
@@ -47,7 +51,7 @@
 			
 			if(tmpTq2 == "hidden")
 			{
-				_analyTq = "SELECT D, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + ") group by D";
+				_analyTq = "SELECT G, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + ") group by G";
 				if(tmpTq1 == "H")
 				{
 					tmpTq = "SELECT A, H WHERE H is NOT NULL";
@@ -60,20 +64,18 @@
 			
 			else
 			{
-				_analyTq = "SELECT D, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + "), MAX(" + arrTq2[0] +
-				"), AVG(" + arrTq2[0] + "), MIN(" + arrTq2[0] + ") group by D";
+				_analyTq = "SELECT G, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + "), MAX(" + arrTq2[0] +
+				"), AVG(" + arrTq2[0] + "), MIN(" + arrTq2[0] + ") group by G";
 				tmpTq = tmpTq + tmpTq1 + ", " + tmpTq2;
 			}
 			
 			if(limit == "0")
 			{
 				tmpTq = tmpTq + " OFFSET " + offset;
-				cRhTq = "SELECT B, C OFFSET " + offset;
 			}
 			else
 			{
 				tmpTq = tmpTq + " LIMIT " + limit + " OFFSET " + offset;
-				cRhTq = "SELECT B, C LIMIT " + limit + " OFFSET " + offset;
 			}
 			
 			console.log("tmpTq" + tmpTq);
@@ -85,10 +87,36 @@
 			var _analyQueryString = encodeURIComponent(_analyTq);
 			var _analyQuery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + _analyQueryString);
 			_analyQuery.send(dataAnalysisResponse);
+		}
+		
+		function vertualRealtime()
+		{
+			var tq = "SELECT A, ";
+			var elementCount;
+			var arrTq1 = document.getElementById("parameter1").value.split("-");
 			
-			var _cRhQueryString = encodeURIComponent(cRhTq);
-			var _cRhQuery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + _cRhQueryString);
-			_cRhQuery.send(cRhResponse);
+			tq = tq + arrTq1[0] + " LIMIT 100 OFFSET " + tmpOffset;
+			console.log(tq);
+			getOffset();
+			console.log("vertualRealtime: tmpOffset= " + tmpOffset);
+			var queryString = encodeURIComponent(tq);
+			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + queryString);
+			query.send(realtimeResponse);
+		}
+		
+		function realtimeResponse(response)
+		{
+			if (response.isError()) {
+				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+				return;
+			}
+			var data = response.getDataTable();
+			var chart = new google.visualization.LineChart(document.getElementById('chart_div3'));
+			
+			var options = {
+			
+			};
+			chart.draw(data, options);
 			
 		}
 		
@@ -104,10 +132,10 @@
 			{
 				console.log("Number of point: " + data.wg.length);
 				document.getElementById("numberOfElement").innerHTML = "Number of point: " + data.wg.length.toString();
-			}catch(err)
-			{
+			}catch(err){
 				document.getElementById("numberOfElement").innerHTML = err.message;
 			}
+			//console.log(data);
 			
 			// Detect type of chart
 			var chartType = document.getElementById("chartType").value;
@@ -154,8 +182,7 @@
 						0: {visibleInLegend: true},	
 						1: {visibleInLegend: true},	
 					},
-					pointSize: 2,
-					
+					pointSize: 1,
 					
 				};
 			}
@@ -176,7 +203,7 @@
 						0: {title: document.getElementById("parameter1").value.split("-")[1]},
 						1: {title: document.getElementById("parameter2").value.split("-")[1]}
 					},
-					pointSize: 2,
+					pointSize: 1,
 				};
 			}
 			
@@ -203,31 +230,22 @@
 			
 		}
 		
-		function cRhResponse(response)
-		{
+		function getOffset(qMsg){
+			qMsg = "SELECT COUNT(A)";
+			var queryString = encodeURIComponent(qMsg);
+			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + queryString);
+			query.send(getOffResponse);
+		}
+		
+		function getOffResponse(response){
 			if (response.isError()) {
 				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 				return;
 			}
 			var data = response.getDataTable();
-			// Detect type of chart
-			var chartType = document.getElementById("chartType").value;
-			if(chartType == "line")
-			{
-				var chart = new google.visualization.LineChart(document.getElementById('chart_div3'));
-			}
-			else
-			{
-				var chart = new google.visualization.ScatterChart(document.getElementById('chart_div3'));
-			}
-			var options = {
-					title: "C-RH",
-					height: 600,
-					crosshair: { trigger: 'both', color: 'yellow'}, // Display crosshairs on focus and selection
-				
-				pointSize: 2,
-			};
-			chart.draw(data, options);
+			tmpOffset = data.wg[0].c[0].v;
+			tmpOffset = tmpOffset - 100;
+			console.log("getOffResponse: tmpOffset= " + tmpOffset);
 		}
 		
 		function testQuery(testMsg){
@@ -263,7 +281,9 @@
 			
 			if(tmpTq2 == "hidden")
 			{
-				_analyTq = "SELECT D, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + ") WHERE (A > datetime \'" + startDate + "\') AND (A < datetime \'" + endDate + "\') group by D";
+				_analyTq = "SELECT G, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + ") WHERE (A > datetime \'" + startDate + "\') AND (A < datetime \'" + endDate + "\') group by G";
+				console.log("db0x02");
+				console.log(_analyTq);
 				if(tmpTq1 == "H")
 				{
 					var dateTq1 = "SELECT A, " + tmpTq1 + " WHERE ( H is NOT NULL ) AND ((A > " + "datetime \'" + startDate + "\') AND (A < datetime \'" + endDate + "\'))";
@@ -271,31 +291,24 @@
 				else
 				{
 					var dateTq1 = "SELECT A, " + tmpTq1 + " WHERE (A > " + "datetime \'" + startDate + "\') and (A < datetime \'" + endDate + "\')";
-					
 				}
 			}
 			else
 			{
-				_analyTq = "SELECT D, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + "), MAX(" + arrTq2[0] +
-				"), AVG(" + arrTq2[0] + "), MIN(" + arrTq2[0] + ") WHERE (A > datetime \'" + startDate + "\') AND (A < datetime \'" + endDate + "\') group by D";
-				console.log(_analyTq);
-				
+				_analyTq = "SELECT G, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + "), MAX(" + arrTq2[0] +
+				"), AVG(" + arrTq2[0] + "), MIN(" + arrTq2[0] + ") WHERE (A > datetime \'" + startDate + "\') AND (A < datetime \'" + endDate + "\') group by G";
 				var dateTq1 = "SELECT A, " + tmpTq1 + "," + tmpTq2 + " WHERE (A > " + "datetime \'" + startDate + "\') and (A < datetime \'" + endDate + "\')";
 			}	
 						
+			console.log("dateTq1= " + dateTq1);
 			var queryString = encodeURIComponent(dateTq1);
 			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + queryString);
 			query.send(handleQueryResponse);
 			
 			// Data Analysis
 			var _analyQueryString = encodeURIComponent(_analyTq);
-			var _analyQuery = new google.visualization.Query('http://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + _analyQueryString);
+			var _analyQuery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + _analyQueryString);
 			_analyQuery.send(dataAnalysisResponse);
-			
-			cRhTq = "SELECT B, C WHERE (A > " + "datetime \'" + startDate + "\') and (A < datetime \'" + endDate + "\')";
-			var _cRhQueryString = encodeURIComponent(cRhTq);
-			var _cRhQuery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + _cRhQueryString);
-			_cRhQuery.send(cRhResponse);
 		}
 
 		
@@ -303,11 +316,9 @@
 	</head>
 	<h1 id="logID">Chp Lab V2.2</h1>
 	<body>
-	
 	<div id="chart_div" style="width: 1200px; height: 600px;"></div>
-	<div id="chart_div2" style="width:1200px; height: 600px;"></div>
-	<div id="chart_div3" style="width:1200px; height: 600px;"></div><br><br>
-	
+	<div id="chart_div2" style="width:1200px; height: 300px;"></div>
+	<div id="chart_div3" style="width:1200px; height: 300px;"></div>
 	Chart type:
 	<select id="chartType">
 		<option value="scatter">Scatter</option>
@@ -317,15 +328,21 @@
 	
 	Parameter1:
 	<select id="parameter1">
-		<option value="B-Temperature" >temp</option>
-		<option value="C-Humidity" >humid</option>
+		<option value="C-Voltage" >V</option>
+		<option value="B-Current" >I</option>
+		<option value="D-Power Factor" >PF</option>
+		<option value="E-Power" >P</option>
+		<option value="F-Energy" >E</option>
+		<option value="H-Peak" >Peak</option>
 	</select><br><br>
 	Parameter2:
 	<select id="parameter2">
-		<option value="C-Humidity">humid</option>
-		<option value="B-Temperature" >temp</option>
-		<option value="hidden-blank" >hide</option>
-
+		<option value="hidden-blank">hide</option>
+		<option value="B-Current" >I</option>
+		<option value="C-Voltage" >V</option>
+		<option value="D-Power Factor" >PF</option>
+		<option value="E-Power" >P</option>
+		<option value="F-Energy" >E</option>
 	</select><br><br>
 	
 	Start Date: <input type="text" id="startDate" value="yyyy-mm-dd"><br><br>
@@ -335,7 +352,9 @@
 	Limit: <input type="text" id="limit" value="0"><br><br>
 	Offset: <input type="text" id="offset" value="0"> <br><br>
 	<button id="drawPoint" onclick="drawGID()">Show at specific points</button><br><br>
-	
+	<form action="/live/powermeter" method="GET">
+		<input type="submit" value="Live view >>">
+	</form>
 
 	
 	</body>
