@@ -94,8 +94,13 @@
 			}
 			var data = response.getDataTable();
 			
-			//console.log("Number of point: " + data.xg.length);
-			//document.getElementById("numberOfElement").innerHTML = "Number of point: " + data.xg.length.toString();
+			try
+			{
+				console.log("Number of point: " + data.wg.length);
+				document.getElementById("numberOfElement").innerHTML = "Number of point: " + data.wg.length.toString();
+			}catch(err){
+				document.getElementById("numberOfElement").innerHTML = err.message;
+			}
 			//console.log(data);
 			
 			// Detect type of chart
