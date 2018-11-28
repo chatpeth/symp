@@ -3,8 +3,9 @@
 		<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/chatpeth/symp/master/public/images/pie-chart.png">
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 		<script type="text/javascript">
-		var sid = '1xHz_6CtPh5749MrbuCZn4fs7lCsAZ_HoIWy4waylcB0';
+		var sid = '1U76bS6qEGz4IkNh1tWYyjYJvPvRDnzviQsAN5TpTGWE';
 		var tmpOffset = 0;
+		var realtimeSpan = 60;
 		google.charts.load("current", {packages:["corechart"]});
 		google.charts.setOnLoadCallback(setDate);
 		//google.charts.setOnLoadCallback(drawGID);
@@ -87,6 +88,8 @@
 			var _analyQueryString = encodeURIComponent(_analyTq);
 			var _analyQuery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + _analyQueryString);
 			_analyQuery.send(dataAnalysisResponse);
+			
+			vertualRealtime();
 		}
 		
 		function vertualRealtime()
@@ -94,11 +97,25 @@
 			var tq = "SELECT A, ";
 			var elementCount;
 			var arrTq1 = document.getElementById("parameter1").value.split("-");
+			var arrTq2 = document.getElementById("parameter2").value.split("-");
 			
-			tq = tq + arrTq1[0] + " LIMIT 100 OFFSET " + tmpOffset;
+			if(arrTq2[0] == "hidden")
+			{
+				tq = tq + arrTq1[0] + " OFFSET " + tmpOffset;
+			}
+			else
+			{
+				tq = tq + arrTq1[0] + ", " + arrTq2[0] + " OFFSET " + tmpOffset;
+			}
+			
 			console.log(tq);
-			getOffset();
-			console.log("vertualRealtime: tmpOffset= " + tmpOffset);
+			if(tmpOffset == 0)
+			{
+				console.log("Waiting Offset");
+				return;
+			}
+			tmpOffset = tmpOffset + 1;
+			//console.log("vertualRealtime: tmpOffset= " + tmpOffset);
 			var queryString = encodeURIComponent(tq);
 			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + queryString);
 			query.send(realtimeResponse);
@@ -114,7 +131,19 @@
 			var chart = new google.visualization.LineChart(document.getElementById('chart_div3'));
 			
 			var options = {
-			
+				title: "Real-time",
+					height: 400,
+					crosshair: { trigger: 'both', color: 'yellow'}, // Display crosshairs on focus and selection.
+					// Gives each series an axis that matches the vAxes number below.
+					series: {
+						0: {targetAxisIndex: 0, lineWidth: 2},
+						1: {targetAxisIndex: 1, lineWidth: 2}
+					},
+					vAxes: {
+					// Adds titles to each axis.
+						0: {title: document.getElementById("parameter1").value.split("-")[1]},
+						1: {title: document.getElementById("parameter2").value.split("-")[1]}
+					},
 			};
 			chart.draw(data, options);
 			
@@ -178,6 +207,7 @@
 						0: {title: document.getElementById("parameter1").value.split("-")[1]},
 						1: {title: document.getElementById("parameter2").value.split("-")[1]}
 					},
+					
 					trendlines: {
 						0: {visibleInLegend: true},	
 						1: {visibleInLegend: true},	
@@ -244,8 +274,13 @@
 			}
 			var data = response.getDataTable();
 			tmpOffset = data.wg[0].c[0].v;
-			tmpOffset = tmpOffset - 100;
+			tmpOffset = tmpOffset - realtimeSpan;
+			if(tmpOffset < 0)
+			{
+				tmpOffset = 1;
+			}
 			console.log("getOffResponse: tmpOffset= " + tmpOffset);
+			vertualRealtime();
 		}
 		
 		function testQuery(testMsg){
@@ -309,16 +344,39 @@
 			var _analyQueryString = encodeURIComponent(_analyTq);
 			var _analyQuery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + _analyQueryString);
 			_analyQuery.send(dataAnalysisResponse);
+			
+			vertualRealtime();
 		}
 
 		
 		</script>
+		<style>
+		#block_container {
+			text-align: center;
+		}
+		#block_container > div {
+			display: inline-block;
+			vertical-align: middle;
+		}
+		</style>
+		<style>
+		#setup {
+			text-align: left;
+		}
+		#setup > div {
+			display: inline-block;
+			vertical-align: middle;
+		}
+		</style>
 	</head>
 	<h1 id="logID">Chp Lab V2.2</h1>
 	<body>
+	<div id="block_container">
 	<div id="chart_div" style="width: 1200px; height: 600px;"></div>
-	<div id="chart_div2" style="width:1200px; height: 300px;"></div>
-	<div id="chart_div3" style="width:1200px; height: 300px;"></div>
+	<div id="chart_div2" style="width:800px; height: 300px;"></div>
+	<div id="chart_div3" style="width:1200px; height: 400px;"></div>
+	</div><br><br>
+	<div id="setup">
 	Chart type:
 	<select id="chartType">
 		<option value="scatter">Scatter</option>
@@ -355,6 +413,11 @@
 	<form action="/live/powermeter" method="GET">
 		<input type="submit" value="Live view >>">
 	</form>
+	</div>
+	
+	<a href="https://docs.google.com/spreadsheets/d/1xHz_6CtPh5749MrbuCZn4fs7lCsAZ_HoIWy4waylcB0/edit?usp=sharing">Download</a><br><br>
+	<a href="https://drive.google.com/drive/folders/1-ILmJAj8ALzPHvg5dmu5zG1Y8wU9QoSS">Storage</a>
+	
 
 	
 	</body>

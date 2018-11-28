@@ -190,6 +190,9 @@
 				
 				};
 			}
+			/*
+			// Trendline is bug because google wrong convert datetime to number
+			// To debug change datetime to timestamp
 			else if(chartType == "scatterWithTrend")
 			{
 				var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
@@ -215,6 +218,7 @@
 					
 				};
 			}
+			*/
 			else
 			{
 				var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
@@ -375,7 +379,6 @@
 	Chart type:
 	<select id="chartType">
 		<option value="scatter">Scatter</option>
-		<option value="scatterWithTrend">Trend</option>
 		<option value="line">Line Chart</option>
 	</select><br><br>
 	
