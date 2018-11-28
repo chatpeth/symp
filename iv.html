@@ -8,11 +8,7 @@
 		var realtimeSpan = 60;
 		google.charts.load("current", {packages:["corechart"]});
 		google.charts.setOnLoadCallback(setDate);
-		//google.charts.setOnLoadCallback(drawGID);
 		google.charts.setOnLoadCallback(drawAtDate);
-		google.charts.setOnLoadCallback(getOffset);
-		
-		setInterval(vertualRealtime, 15000);
 		
 		var cname = "Production line1";
 		function setDate(){
@@ -88,65 +84,7 @@
 			var _analyQueryString = encodeURIComponent(_analyTq);
 			var _analyQuery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + _analyQueryString);
 			_analyQuery.send(dataAnalysisResponse);
-			
-			vertualRealtime();
-		}
-		
-		function vertualRealtime()
-		{
-			var tq = "SELECT A, ";
-			var elementCount;
-			var arrTq1 = document.getElementById("parameter1").value.split("-");
-			var arrTq2 = document.getElementById("parameter2").value.split("-");
-			
-			if(arrTq2[0] == "hidden")
-			{
-				tq = tq + arrTq1[0] + " OFFSET " + tmpOffset;
-			}
-			else
-			{
-				tq = tq + arrTq1[0] + ", " + arrTq2[0] + " OFFSET " + tmpOffset;
-			}
-			
-			console.log(tq);
-			if(tmpOffset == 0)
-			{
-				console.log("Waiting Offset");
-				return;
-			}
-			tmpOffset = tmpOffset + 1;
-			//console.log("vertualRealtime: tmpOffset= " + tmpOffset);
-			var queryString = encodeURIComponent(tq);
-			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + queryString);
-			query.send(realtimeResponse);
-		}
-		
-		function realtimeResponse(response)
-		{
-			if (response.isError()) {
-				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
-				return;
-			}
-			var data = response.getDataTable();
-			var chart = new google.visualization.LineChart(document.getElementById('chart_div3'));
-			
-			var options = {
-				title: "Real-time",
-					height: 400,
-					crosshair: { trigger: 'both', color: 'yellow'}, // Display crosshairs on focus and selection.
-					// Gives each series an axis that matches the vAxes number below.
-					series: {
-						0: {targetAxisIndex: 0, lineWidth: 2},
-						1: {targetAxisIndex: 1, lineWidth: 2}
-					},
-					vAxes: {
-					// Adds titles to each axis.
-						0: {title: document.getElementById("parameter1").value.split("-")[1]},
-						1: {title: document.getElementById("parameter2").value.split("-")[1]}
-					},
-			};
-			chart.draw(data, options);
-			
+
 		}
 		
 		function handleQueryResponse(response) {
@@ -256,26 +194,6 @@
 			};
 			
 			chart.draw(data, options2);
-			
-		}
-		
-		function getOffset(qMsg){
-			qMsg = "SELECT COUNT(A)";
-			var queryString = encodeURIComponent(qMsg);
-			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + queryString);
-			query.send(getOffResponse);
-		}
-		
-		function getOffResponse(response){
-			if (response.isError()) {
-				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
-				return;
-			}
-			var data = response.getDataTable();
-			tmpOffset = data.wg[0].c[0].v;
-			tmpOffset = tmpOffset - realtimeSpan;
-			console.log("getOffResponse: tmpOffset= " + tmpOffset);
-			vertualRealtime();
 		}
 		
 		function testQuery(testMsg){
@@ -294,6 +212,28 @@
 			console.log("Testing complete");
 		}
 		
+		function ivResponse(response){
+			var data = response.getDataTable();
+			var chart = new google.visualization.ScatterChart(document.getElementById('chart_div3'));
+			var options = {
+				title: cname,
+				height: 600,
+				crosshair: { trigger: 'both', color: 'yellow'}, // Display crosshairs on focus and selection.
+				// Gives each series an axis that matches the vAxes number below.
+				series: {
+					0: {targetAxisIndex: 0}, 
+					
+				},
+				vAxes: {
+				// Adds titles to each axis.
+					0: {title: document.getElementById("parameter1").value.split("-")[1] + "= f( " + document.getElementById("parameter2").value.split("-")[1] + ")"},
+					
+				},
+				pointSize: 1,
+			};
+			chart.draw(data, options);
+		}
+
 		function drawAtDate(){
 			var startDate = document.getElementById("startDate").value;
 			var endDate = document.getElementById("endDate").value;
@@ -303,6 +243,7 @@
 			var tmpTq2 = arrTq2[0];
 			var _analyTq;
 			
+			
 			if((tmpTq1 == tmpTq2) || (tmpTq1 == "H"))
 			{
 				tmpTq2 = "hidden";
@@ -311,6 +252,7 @@
 			
 			if(tmpTq2 == "hidden")
 			{
+				var ivTq = "SELECT A, " + arrTq1[0] + " WHERE (A > " + "datetime \'" + startDate + "\') and (A < datetime \'" + endDate + "\')";
 				_analyTq = "SELECT G, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + ") WHERE (A > datetime \'" + startDate + "\') AND (A < datetime \'" + endDate + "\') group by G";
 				console.log("db0x02");
 				console.log(_analyTq);
@@ -325,6 +267,8 @@
 			}
 			else
 			{
+				var ivTq = "SELECT " + arrTq2[0] + ", " + arrTq1[0] + " WHERE (A > datetime \'" + startDate + "\') and (A < datetime \'" + endDate + "\')";
+				console.log("db0x03: ivTq= " + ivTq);
 				_analyTq = "SELECT G, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + "), MAX(" + arrTq2[0] +
 				"), AVG(" + arrTq2[0] + "), MIN(" + arrTq2[0] + ") WHERE (A > datetime \'" + startDate + "\') AND (A < datetime \'" + endDate + "\') group by G";
 				var dateTq1 = "SELECT A, " + tmpTq1 + "," + tmpTq2 + " WHERE (A > " + "datetime \'" + startDate + "\') and (A < datetime \'" + endDate + "\')";
@@ -340,7 +284,11 @@
 			var _analyQuery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + _analyQueryString);
 			_analyQuery.send(dataAnalysisResponse);
 			
-			vertualRealtime();
+			console.log("ivTq= " + ivTq);
+			var ivTqString = encodeURIComponent(ivTq);
+			var ivQuery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + ivTqString);
+			ivQuery.send(ivResponse);
+			
 		}
 
 		
@@ -369,7 +317,7 @@
 	<div id="block_container">
 	<div id="chart_div" style="width: 1200px; height: 600px;"></div>
 	<div id="chart_div2" style="width:800px; height: 300px;"></div>
-	<div id="chart_div3" style="width:1200px; height: 400px;"></div>
+	<div id="chart_div3" style="width:1200px; height: 600px;"></div>
 	</div><br><br>
 	<div id="setup">
 	Chart type:
@@ -409,11 +357,8 @@
 		<input type="submit" value="Live view >>">
 	</form>
 	</div>
-	
-	<a href="https://docs.google.com/spreadsheets/d/1xHz_6CtPh5749MrbuCZn4fs7lCsAZ_HoIWy4waylcB0/edit?usp=sharing">Download</a><br><br>
+	<a href="https://docs.google.com/spreadsheets/d/1xHz_6CtPh5749MrbuCZn4fs7lCsAZ_HoIWy4waylcB0/edit?usp=sharing">Download</a>
 	<a href="https://drive.google.com/drive/folders/1-ILmJAj8ALzPHvg5dmu5zG1Y8wU9QoSS">Storage</a>
-	
-
 	
 	</body>
 </html>
