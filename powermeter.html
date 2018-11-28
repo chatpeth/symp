@@ -5,7 +5,7 @@
 		<script type="text/javascript">
 		var sid = '1xHz_6CtPh5749MrbuCZn4fs7lCsAZ_HoIWy4waylcB0';
 		var tmpOffset = 0;
-		var realtimeSpan = 60;
+		var realtimeSpan = 120;
 		google.charts.load("current", {packages:["corechart"]});
 		google.charts.setOnLoadCallback(setDate);
 		//google.charts.setOnLoadCallback(drawGID);
@@ -31,7 +31,7 @@
 			
 		
 		function drawGID() {
-			var tmpTq = "SELECT A, ";
+			var tmpTq;
 			var arrTq1 = document.getElementById("parameter1").value.split("-");
 			var arrTq2 = document.getElementById("parameter2").value.split("-");
 			var tmpTq1 = arrTq1[0];
@@ -39,9 +39,19 @@
 			var _analyTq;
 			var limit = document.getElementById("limit").value;
 			var offset = document.getElementById("offset").value;
+			var UnixTsCol;
+			// Detect type of chart
+			var chartType = document.getElementById("chartType").value;
+			if(chartType == "scatterWithTrend")
+			{
+				UnixTsCol = "I";
+			}
+			else
+			{
+				UnixTsCol = "A";
+			}
 			
 			console.log("_analyTq=" + _analyTq);
-			
 			console.log("tmpTq1=" + tmpTq1 + " tmpTq2=" + tmpTq2);
 			
 			if((tmpTq1 == tmpTq2) || (tmpTq1 == "H"))
@@ -55,11 +65,11 @@
 				_analyTq = "SELECT G, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + ") group by G";
 				if(tmpTq1 == "H")
 				{
-					tmpTq = "SELECT A, H WHERE H is NOT NULL";
+					tmpTq = "SELECT " + UnixTsCol + ", H WHERE H is NOT NULL";
 				}
 				else
 				{
-					tmpTq = tmpTq + tmpTq1;
+					tmpTq = "SELECT " + UnixTsCol + ", " + tmpTq1;
 				}
 			}
 			
@@ -67,7 +77,7 @@
 			{
 				_analyTq = "SELECT G, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + "), MAX(" + arrTq2[0] +
 				"), AVG(" + arrTq2[0] + "), MIN(" + arrTq2[0] + ") group by G";
-				tmpTq = tmpTq + tmpTq1 + ", " + tmpTq2;
+				tmpTq = "SELECT " + UnixTsCol + ", " + tmpTq1 + ", " + tmpTq2;
 			}
 			
 			if(limit == "0")
@@ -118,7 +128,15 @@
 			//console.log("vertualRealtime: tmpOffset= " + tmpOffset);
 			var queryString = encodeURIComponent(tq);
 			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + queryString);
-			query.send(realtimeResponse);
+			try
+			{
+				query.send(realtimeResponse);
+			}
+			catch(err)
+			{
+				console.log("Connection loss..." + err.message);
+				return;
+			}
 		}
 		
 		function realtimeResponse(response)
@@ -190,7 +208,7 @@
 				
 				};
 			}
-			/*
+			
 			// Trendline is bug because google wrong convert datetime to number
 			// To debug change datetime to timestamp
 			else if(chartType == "scatterWithTrend")
@@ -214,11 +232,14 @@
 						0: {visibleInLegend: true},	
 						1: {visibleInLegend: true},	
 					},
+					hAxis: {
+						ticks: []
+					},
 					pointSize: 1,
 					
 				};
 			}
-			*/
+			
 			else
 			{
 				var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
@@ -306,6 +327,17 @@
 			var tmpTq1 = arrTq1[0];
 			var tmpTq2 = arrTq2[0];
 			var _analyTq;
+			var UnixTsCol;
+			// Detect type of chart
+			var chartType = document.getElementById("chartType").value;
+			if(chartType == "scatterWithTrend")
+			{
+				UnixTsCol = "I";
+			}
+			else
+			{
+				UnixTsCol = "A";
+			}
 			
 			if((tmpTq1 == tmpTq2) || (tmpTq1 == "H"))
 			{
@@ -320,21 +352,21 @@
 				console.log(_analyTq);
 				if(tmpTq1 == "H")
 				{
-					var dateTq1 = "SELECT A, " + tmpTq1 + " WHERE ( H is NOT NULL ) AND ((A > " + "datetime \'" + startDate + "\') AND (A < datetime \'" + endDate + "\'))";
+					var dateTq1 = "SELECT " + UnixTsCol + ", " + tmpTq1 + " WHERE ( H is NOT NULL ) AND ((A > " + "datetime \'" + startDate + "\') AND (A < datetime \'" + endDate + "\'))";
 				}
 				else
 				{
-					var dateTq1 = "SELECT A, " + tmpTq1 + " WHERE (A > " + "datetime \'" + startDate + "\') and (A < datetime \'" + endDate + "\')";
+					var dateTq1 = "SELECT " + UnixTsCol + ", " + tmpTq1 + " WHERE (A > " + "datetime \'" + startDate + "\') and (A < datetime \'" + endDate + "\')";
 				}
 			}
 			else
 			{
 				_analyTq = "SELECT G, MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + "), MAX(" + arrTq2[0] +
 				"), AVG(" + arrTq2[0] + "), MIN(" + arrTq2[0] + ") WHERE (A > datetime \'" + startDate + "\') AND (A < datetime \'" + endDate + "\') group by G";
-				var dateTq1 = "SELECT A, " + tmpTq1 + "," + tmpTq2 + " WHERE (A > " + "datetime \'" + startDate + "\') and (A < datetime \'" + endDate + "\')";
+				var dateTq1 = "SELECT " + UnixTsCol + ", " + tmpTq1 + "," + tmpTq2 + " WHERE (A > " + "datetime \'" + startDate + "\') and (A < datetime \'" + endDate + "\')";
 			}	
 						
-			console.log("dateTq1= " + dateTq1);
+			console.log("db0x06: dateTq1= " + dateTq1);
 			var queryString = encodeURIComponent(dateTq1);
 			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + queryString);
 			query.send(handleQueryResponse);
@@ -380,6 +412,7 @@
 	<select id="chartType">
 		<option value="scatter">Scatter</option>
 		<option value="line">Line Chart</option>
+		<option value="scatterWithTrend">Trend</option>
 	</select><br><br>
 	
 	Parameter1:
