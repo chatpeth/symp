@@ -141,7 +141,7 @@
 			else if(chartType == "scatterWithTrend")
 			{
 				console.log("db0x06");
-				console.log(data);
+				//console.log(data);
 				var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
 				var options = {
 					title: cname,
@@ -162,7 +162,7 @@
 						1: {visibleInLegend: true},	
 					},
 					hAxis: {
-						textPosition: 'none',
+						ticks: []
 					},
 					pointSize: 2,
 					
