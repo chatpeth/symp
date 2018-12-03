@@ -37,6 +37,11 @@ server.get('/rm266', function(req, res){
   res.sendFile(__dirname + "/rm266.html");
 });
 
+server.get('/bill', function(req, res){
+  console.log(__dirname);
+  res.sendFile(__dirname + "/bill.html");
+});
+
 //login
 server.post('/home', function(req, res){
 
