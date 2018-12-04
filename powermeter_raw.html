@@ -8,18 +8,16 @@
 		}
 
 		h1 	{
-			height: 40px;
+			height: 50px;
 			color: white;
 			font-family: verdana;
 			text-align: left;
-			background-color: MediumBlue;
+			background-color: DodgerBlue;
 			font-size: 25px;
-			padding-left: 20px;
-			padding-top: 10px;
 		}
 
 		p 	{
-			color: black;
+			color: blue;
 			font-family: verdana;
 			font-size: 15px;
 		}
@@ -415,14 +413,10 @@
 		<style>
 		#setup {
 			text-align: left;
-			color: black;
-			font-family: verdana;
-			font-size: 15px;
 		}
 		#setup > div {
 			display: inline-block;
 			vertical-align: middle;
-			
 		}
 		</style>
 	</head>
@@ -439,7 +433,7 @@
 		<option value="scatter">Scatter</option>
 		<option value="line">Line Chart</option>
 		<option value="scatterWithTrend">Trend</option>
-	</select>
+	</select><br><br>
 	
 	Parameter1:
 	<select id="parameter1">
@@ -449,7 +443,7 @@
 		<option value="E-Power" >P</option>
 		<option value="F-Energy" >E</option>
 		<option value="H-Peak" >Peak</option>
-	</select>
+	</select><br><br>
 	Parameter2:
 	<select id="parameter2">
 		<option value="hidden-blank">hide</option>
@@ -460,13 +454,13 @@
 		<option value="F-Energy" >E</option>
 	</select><br><br>
 	
-	Start Date: <input type="text" id="startDate" value="yyyy-mm-dd">
-	End Date: <input type="text" id="endDate" value="yyyy-mm-dd"><br><br>
-	<button id="drawDate" onclick="drawAtDate()">Show at specific date</button><br><br>
-	Limit: <input type="text" id="limit" value="0">
-	Offset: <input type="text" id="offset" value="0"><br><br>
-	<button id="drawPoint" onclick="drawGID()">Show at specific points</button><br>
+	Start Date: <input type="text" id="startDate" value="yyyy-mm-dd"><br><br>
+	End Date: <input type="text" id="endDate" value="yyyy-mm-dd"> <br><br>
+	<button id="drawDate" onclick="drawAtDate()">Show at specific date</button><br>
 	<p id="numberOfElement">Number of point: </p>
+	Limit: <input type="text" id="limit" value="0"><br><br>
+	Offset: <input type="text" id="offset" value="0"> <br><br>
+	<button id="drawPoint" onclick="drawGID()">Show at specific points</button><br><br>
 	<form action="/live/powermeter" method="GET">
 		<input type="submit" value="Live view >>">
 	</form>
