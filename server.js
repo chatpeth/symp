@@ -42,6 +42,11 @@ server.get('/bill', function(req, res){
   res.sendFile(__dirname + "/bill.html");
 });
 
+server.get('/design', function(req, res){
+  console.log(__dirname);
+  res.sendFile(__dirname + "/mycss.html");
+});
+
 //login
 server.post('/home', function(req, res){
 
