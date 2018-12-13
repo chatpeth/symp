@@ -151,7 +151,6 @@
 			
 			var options = {
 				title: "Real-time",
-					height: 400,
 					crosshair: { trigger: 'both', color: 'gray'}, // Display crosshairs on focus and selection.
 					// Gives each series an axis that matches the vAxes number below.
 					series: {
@@ -194,8 +193,6 @@
 				var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 				var options = {
 					title: cname,
-					height: 500,
-					width: 900,
 					crosshair: { trigger: 'both', color: 'gray'}, // Display crosshairs on focus and selection.
 					// Gives each series an axis that matches the vAxes number below.
 					series: {
@@ -218,8 +215,6 @@
 				var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
 				var options = {
 					title: cname,
-					height: 500,
-					width: 900,
 					crosshair: { trigger: 'both', color: 'gray'}, // Display crosshairs on focus and selection.
 					// Gives each series an axis that matches the vAxes number below.
 					series: {
@@ -248,8 +243,6 @@
 				var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
 				var options = {
 					title: cname,
-					height: 500,
-					width: 900,
 					crosshair: { trigger: 'both', color: 'gray'}, // Display crosshairs on focus and selection.
 					// Gives each series an axis that matches the vAxes number below.
 					series: {
@@ -280,8 +273,6 @@
 				bar: {groupWidth: "25%"},
 			};
 			var options2 = {
-				height: 270,
-				width: 400,
 				title: "Analysis",
 				bar: {groupWidth: "25%"},
 			};
@@ -397,7 +388,7 @@
 	<div id="__screen">
 	<div id="__main">
 	
-	<div id="chart_div" style="width: 950px; height: 500px;"></div>
+	<div id="chart_div"></div>
 	
 	<div id="leftdiv">
 	<div id="setup">
@@ -437,10 +428,10 @@
 	<p id="numberOfElement">Number of point: </p>
 	</div>
 	
-	<div id="chart_div2" style="width:400px; height: 270px;"></div>
+	<div id="chart_div2"></div>
 	</div>
 	</div>
-	<div id="chart_div3" style="width:950px; height: 400px;"></div>
+	<div id="chart_div3"></div>
 
 	<p id="getData"><b><a href="https://docs.google.com/spreadsheets/d/1xHz_6CtPh5749MrbuCZn4fs7lCsAZ_HoIWy4waylcB0/edit?usp=sharing">Download</a></b></p>
 	<p id="storage"><b><a href="https://drive.google.com/drive/folders/1-ILmJAj8ALzPHvg5dmu5zG1Y8wU9QoSS">Storage</a></b></p>
