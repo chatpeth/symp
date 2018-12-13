@@ -91,21 +91,25 @@ header.site-header {
 	/*border:2px solid gray;*/
 	text-align: left;
 	padding: 10px 10px;
-	margin-left: 60px;
+	margin-left: 120px;
+	margin-top: 10px;
 	background-color: white;
-	width: 820px;
+	width: 720px;
 	height: 500px;
+	border-radius: 10px;
 }
 
 #setup {
-	width: 354px;
+	width: 320px;
 	height: 200px;
 	/*border:2px solid gray;*/
 	text-align: left;
 	padding: 10px 10px;
 	margin-left: 10px;
+	margin-top: 10px;
 	background-color: white;
 	/*overflow: scroll;*/
+	border-radius: 10px;
 }
 
 #limit{
@@ -182,8 +186,9 @@ header.site-header {
 	margin-left: 10px;
 	margin-top: 10px;
 	background-color: white;
-	width:354px;
+	width:320px;
 	height: 270px;
+	border-radius: 10px;
 }
 
 #chart_div3 {
@@ -191,15 +196,16 @@ header.site-header {
 	text-align: left;
 	padding: 10px 10px;
 	margin-top: 10px;
-	margin-left: 60px;
+	margin-left: 120px;
 	margin-bottom: 20px;
 	background-color: white;
-	width:820px;
+	width:720px;
 	height: 400px;
+	border-radius: 10px;
 }
 
 #getData {
-	margin-left: 60px;
+	margin-left: 120px;
 	margin-right: 5px;
 	margin-bottom: 40px;
 }
