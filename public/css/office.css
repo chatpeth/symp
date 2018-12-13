@@ -1,0 +1,199 @@
+body {
+    background-color: #F0F0F3;
+	margin: 0px 0px 0px 0px;
+}
+
+
+h1 {
+	color: white;
+	text-align: left;
+	font-size: 25px;
+	font-family: Arial, Helvetica, sans-serif;
+	height: 50px;
+	width: 100%;
+	margin-left: 30px;
+	
+}
+h2 {
+    color: white;
+	background-color:#7684FE;
+    margin-right: 250px;
+	text-align: left;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+p, input {
+    font-family: verdana;
+    font-size: 14px;
+	color: black;
+    text-align: left;
+}
+
+button {
+	background-color: #354CA6;
+	color: white;
+	padding: 3px 8px;
+	text-align: center;
+	border:2px solid gray;
+	border-radius: 5px;
+}
+
+button:hover, button:active{
+	background-color: #384A94;
+	cursor: pointer;
+}
+
+
+a:link, a:visited{
+	text-decoration: none;
+	background-color: #354CA6;
+	color: white;
+	padding: 5px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	border:2px solid gray;
+	border-radius: 5px;
+}
+
+a:hover, a:active{
+	/*text-decoration: underline;*/
+	background-color: #384A94;
+	cursor: pointer;
+}
+
+a.one:link {
+	color: black;
+}
+
+header.site-header {
+	background-color: #354CA6;
+	color: white;
+	height: 50px;
+	border:1px solid black;
+	
+}
+
+#__main {
+	display: flex;
+    justify-content: left;
+}
+#chart_div {
+	/*border:2px solid gray;*/
+	text-align: left;
+	padding: 10px 10px;
+	margin-left: 30px;
+	background-color: white;
+}
+
+#setup {
+	width: 400px;
+	height: 200px;
+	/*border:2px solid gray;*/
+	text-align: left;
+	padding: 10px 10px;
+	margin-left: 10px;
+	background-color: white;
+	/*overflow: scroll;*/
+}
+
+#limit, #offset {
+	width:60px;
+}
+
+#chartType_lbl, #chartType {
+	display: inline;
+}
+
+#chartType {
+	margin-left: 10px;
+}
+
+#parameter1_lbl, #parameter1 {
+	margin-top: 10px;
+	display: inline;
+}
+
+#parameter1 {
+	margin-left: 3px;
+}
+
+#parameter2_lbl {
+	margin-left: 3px;
+}
+#parameter2_lbl, #parameter2 {
+	display: inline;
+}
+
+#startDate_lbl, #startDate {
+	margin-top: 10px;
+	display: inline;
+	
+}
+
+#startDate {
+	margin-left: 10px;
+	width:177px;
+}
+
+#endDate_lbl, #endDate {
+	margin-top: 10px;
+	display: inline;
+	
+}
+
+#endDate {
+	margin-left: 18px;
+	width:177px;
+}
+
+#limit_lbl, #limit, #offset_lbl, #offset {
+	margin-top: 10px;
+	display: inline;
+}
+
+#limit {
+	margin-left: 48px;
+}
+
+#drawDate {
+	margin-left: 1px;
+}
+
+#chart_div2 {
+	/*border:2px solid gray;*/
+	text-align: left;
+	padding: 10px 10px;
+	margin-left: 10px;
+	margin-top: 10px;
+	background-color: white;
+}
+
+#chart_div3 {
+	/*border:2px solid gray;*/
+	text-align: left;
+	padding: 10px 10px;
+	margin-top: 10px;
+	margin-left: 30px;
+	margin-bottom: 20px;
+	background-color: white;
+}
+
+#getData {
+	margin-left: 30px;
+	margin-right: 15px;
+	margin-bottom: 40px;
+}
+
+#getData, #storage {
+	display: inline;
+}
+
+#__screen {
+
+}
+
+#credit {
+	color: gray;
+	text-align: center;
+}

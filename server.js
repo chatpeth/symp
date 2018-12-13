@@ -27,6 +27,11 @@ server.get('/powermeter', function(req, res){
   res.sendFile(__dirname + "/" + "powermeter.html");
 });
 
+server.get('/office', function(req, res){
+  console.log(__dirname);
+  res.sendFile(__dirname + "/" + "office.html");
+});
+
 server.get('/live/powermeter', function(req, res){
   console.log(__dirname);
   res.sendFile(__dirname + "/live/" + "powermeter.html");
