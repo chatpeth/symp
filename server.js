@@ -32,6 +32,11 @@ server.get('/office', function(req, res){
   res.sendFile(__dirname + "/" + "office.html");
 });
 
+server.get('/gauge', function(req, res){
+  console.log(__dirname);
+  res.sendFile(__dirname + "/" + "gauge.html");
+});
+
 server.get('/live/powermeter', function(req, res){
   console.log(__dirname);
   res.sendFile(__dirname + "/live/" + "powermeter.html");

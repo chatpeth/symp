@@ -2,36 +2,7 @@
 	<head>
 		<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/chatpeth/symp/master/public/images/pie-chart.png">
 		<link rel="stylesheet" type="text/css" href="/css/office.css">
-		
-		<link rel="stylesheet" type="text/css" href="/css/material-gauge.css">
-		
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-		
-		<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-app.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-database.js"></script>
-		
-		
-		<script type="text/javascript">
-		// Firebase script
-		var firebaseKey = "z0BTa3BYrfe7xi8QGzn5yiPaHll1";
-		var config = {
-			apiKey: "AIzaSyCkVdTESVUG_BZwjqxFPyTvE36IAqE4-JA",
-			authDomain: "wpm2019-403f9.firebaseapp.com",
-			databaseURL: "https://wpm2019-403f9.firebaseio.com",
-			projectId: "wpm2019-403f9",
-			storageBucket: "wpm2019-403f9.appspot.com",
-			messagingSenderId: "480780089854"
-		};
-		firebase.initializeApp(config);
-		// Get a reference to the database service
-		var database = firebase.database();
-		
-		database.ref(firebaseKey + '/billing/meter1/location').once('value').then(function(snapshot){
-			console.log(snapshot.val());
-		});
-		
-		</script>
-		
 		<script type="text/javascript">
 		var sid = '1xHz_6CtPh5749MrbuCZn4fs7lCsAZ_HoIWy4waylcB0';
 		var tmpOffset = 0;
@@ -303,7 +274,7 @@
 			};
 			var options2 = {
 				title: "Analysis",
-				bar: {groupWidth: "35%"},
+				bar: {groupWidth: "25%"},
 			};
 			
 			chart.draw(data, options2);
@@ -410,7 +381,6 @@
 	</head>
 	
 	<body>
-		
 	<header class="site-header">
 	<h1>Chp-lab</h1>
 	</header>
@@ -465,68 +435,7 @@
 	<div id="__realtime">
 	<div id="chart_div3"></div>
 	<div id="livediv">
-	<div id="__param1name"><p>Voltage</p></div>
-	<div class="gauge gauge--liveupdate" id="gauge">
-        <div class="gauge__container">
-        	<div class="gauge__marker"></div>
-        	<div class="gauge__background"></div>
-        	<div class="gauge__center"></div>
-        	<div class="gauge__data"></div>
-        	<div class="gauge__needle"></div>
-        </div>
-        <div class="gauge__labels mdl-typography__headline">
-            <span class="gauge__label--low"><p id="gaugeMin">0</p></span>
-			<span class="gauge__label--spacer"><p id="gaugeValue">number</p></span>
-            <span class="gauge__label--high"><p id="gaugeMax">120</p></span>
-        </div>
-    </div>
-	
-	<div id="__param1name"><p>Current</p></div>
-	<div class="gauge gauge--liveupdate" id="gauge2">
-        <div class="gauge__container">
-        	<div class="gauge__marker"></div>
-        	<div class="gauge__background"></div>
-        	<div class="gauge__center"></div>
-        	<div class="gauge__data"></div>
-        	<div class="gauge__needle"></div>
-        </div>
-        <div class="gauge__labels mdl-typography__headline">
-            <span class="gauge__label--low"><p id="gauge2Min">0</p></span>
-			<span class="gauge__label--spacer"><p id="gauge2Value">number</p></span>
-            <span class="gauge__label--high"><p id="gauge2Max">1</p></span>
-        </div>
-    </div>
 	</div>
-	
-	<script src="/js/material-gauge.js"></script>
-	<script>
-	var gauge = new Gauge(document.getElementById("gauge"));
-	var tmp = 0;
-	// Gauge2
-	var gauge2 = new Gauge(document.getElementById("gauge2"));
-	
-	gauge.value(0);
-	gauge2.value(0);
-	
-	var __voltage = database.ref(firebaseKey + '/billing/V');
-	var __current = database.ref(firebaseKey + '/billing/A');
-		
-	__voltage.on('value', function(snapshot){
-		
-		gauge.value(snapshot.val()/120);
-		
-		document.getElementById("gaugeValue").innerHTML = snapshot.val() + " V";
-	});
-	
-	__current.on('value', function(snapshot){
-		
-		gauge2.value(snapshot.val());
-		
-		document.getElementById("gauge2Value").innerHTML = snapshot.val() + " A";
-	});
-	
-	</script>
-	
 	</div>
 	
 	<p id="getData"><b><a href="https://docs.google.com/spreadsheets/d/1xHz_6CtPh5749MrbuCZn4fs7lCsAZ_HoIWy4waylcB0/edit?usp=sharing">Download</a></b></p>
