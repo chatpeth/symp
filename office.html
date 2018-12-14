@@ -476,12 +476,12 @@
         </div>
         <div class="gauge__labels mdl-typography__headline">
             <span class="gauge__label--low"><p id="gaugeMin">0</p></span>
-			<span class="gauge__label--spacer"><p id="gaugeValue">number</p></span>
+			<span class="gauge__label--spacer"><p id="gaugeValue">V</p></span>
             <span class="gauge__label--high"><p id="gaugeMax">120</p></span>
         </div>
     </div>
 	
-	<div id="__param1name"><p>Current</p></div>
+	<div id="__param2name"><p>Current</p></div>
 	<div class="gauge gauge--liveupdate" id="gauge2">
         <div class="gauge__container">
         	<div class="gauge__marker"></div>
@@ -492,37 +492,104 @@
         </div>
         <div class="gauge__labels mdl-typography__headline">
             <span class="gauge__label--low"><p id="gauge2Min">0</p></span>
-			<span class="gauge__label--spacer"><p id="gauge2Value">number</p></span>
+			<span class="gauge__label--spacer"><p id="gauge2Value">A</p></span>
             <span class="gauge__label--high"><p id="gauge2Max">1</p></span>
         </div>
     </div>
+	
+	<div id="__param3name"><p>Power Factor</p></div>
+	<div class="gauge gauge--liveupdate" id="gauge3">
+        <div class="gauge__container">
+        	<div class="gauge__marker"></div>
+        	<div class="gauge__background"></div>
+        	<div class="gauge__center"></div>
+        	<div class="gauge__data"></div>
+        	<div class="gauge__needle"></div>
+        </div>
+        <div class="gauge__labels mdl-typography__headline">
+            <span class="gauge__label--low"><p id="gauge3Min">0</p></span>
+			<span class="gauge__label--spacer"><p id="gauge3Value">number</p></span>
+            <span class="gauge__label--high"><p id="gauge3Max">1</p></span>
+        </div>
+    </div>
+	
+	<div id="__param4name"><p>Power</p></div>
+	<div class="gauge gauge--liveupdate" id="gauge4">
+        <div class="gauge__container">
+        	<div class="gauge__marker"></div>
+        	<div class="gauge__background"></div>
+        	<div class="gauge__center"></div>
+        	<div class="gauge__data"></div>
+        	<div class="gauge__needle"></div>
+        </div>
+        <div class="gauge__labels mdl-typography__headline">
+            <span class="gauge__label--low"><p id="gauge4Min">0</p></span>
+			<span class="gauge__label--spacer"><p id="gauge4Value">W</p></span>
+            <span class="gauge__label--high"><p id="gauge4Max">1</p></span>
+        </div>
+    </div>
+	
+	<div id="__param5name"><p>Energy</p></div>
+	<div class="gauge gauge--liveupdate" id="gauge5">
+        <div class="gauge__container">
+        	<div class="gauge__marker"></div>
+        	<div class="gauge__background"></div>
+        	<div class="gauge__center"></div>
+        	<div class="gauge__data"></div>
+        	<div class="gauge__needle"></div>
+        </div>
+        <div class="gauge__labels mdl-typography__headline">
+            <span class="gauge__label--low"><p id="gauge5Min">0</p></span>
+			<span class="gauge__label--spacer"><p id="gauge5Value">kWh</p></span>
+            <span class="gauge__label--high"><p id="gauge5Max">10</p></span>
+        </div>
+    </div>
+	
 	</div>
 	
 	<script src="/js/material-gauge.js"></script>
 	<script>
 	var gauge = new Gauge(document.getElementById("gauge"));
-	var tmp = 0;
-	// Gauge2
 	var gauge2 = new Gauge(document.getElementById("gauge2"));
+	var gauge3 = new Gauge(document.getElementById("gauge3"));
+	var gauge4 = new Gauge(document.getElementById("gauge4"));
+	var gauge5 = new Gauge(document.getElementById("gauge5"));
 	
 	gauge.value(0);
 	gauge2.value(0);
+	gauge3.value(0);
+	gauge4.value(0);
+	gauge5.value(0);
 	
 	var __voltage = database.ref(firebaseKey + '/billing/V');
 	var __current = database.ref(firebaseKey + '/billing/A');
+	var __pf = database.ref(firebaseKey + '/billing/pf');
+	var __power = database.ref(firebaseKey + '/billing/P');
+	var __energy = database.ref(firebaseKey + '/billing/E');
 		
 	__voltage.on('value', function(snapshot){
-		
 		gauge.value(snapshot.val()/120);
-		
 		document.getElementById("gaugeValue").innerHTML = snapshot.val() + " V";
 	});
 	
 	__current.on('value', function(snapshot){
-		
 		gauge2.value(snapshot.val());
-		
 		document.getElementById("gauge2Value").innerHTML = snapshot.val() + " A";
+	});
+	
+	__pf.on('value', function(snapshot){
+		gauge3.value(snapshot.val());
+		document.getElementById("gauge3Value").innerHTML = snapshot.val();
+	});
+	
+	__power.on('value', function(snapshot){
+		gauge4.value(snapshot.val());
+		document.getElementById("gauge4Value").innerHTML = snapshot.val() + " W";
+	});
+	
+	__energy.on('value', function(snapshot){
+		gauge5.value(snapshot.val());
+		document.getElementById("gauge5Value").innerHTML = snapshot.val() + " kWh";
 	});
 	
 	</script>

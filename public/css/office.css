@@ -234,6 +234,8 @@ header.site-header {
 	width:320px;
 	height: 400px;
 	border-radius: 10px;
+	overflow: scroll;
+	overflow-x: hidden; 
 }
 
 #credit {
