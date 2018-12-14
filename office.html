@@ -471,7 +471,7 @@
         	<div class="gauge__marker"></div>
         	<div class="gauge__background"></div>
         	<div class="gauge__center"></div>
-        	<div class="gauge__data"></div>
+        	<div class="gauge__data" id="gaugeDataColor"></div>
         	<div class="gauge__needle"></div>
         </div>
         <div class="gauge__labels mdl-typography__headline">
@@ -487,7 +487,7 @@
         	<div class="gauge__marker"></div>
         	<div class="gauge__background"></div>
         	<div class="gauge__center"></div>
-        	<div class="gauge__data"></div>
+        	<div class="gauge__data" id="gaugeDataColor2"></div>
         	<div class="gauge__needle"></div>
         </div>
         <div class="gauge__labels mdl-typography__headline">
@@ -503,7 +503,7 @@
         	<div class="gauge__marker"></div>
         	<div class="gauge__background"></div>
         	<div class="gauge__center"></div>
-        	<div class="gauge__data"></div>
+        	<div class="gauge__data" id="gaugeDataColor3"></div>
         	<div class="gauge__needle"></div>
         </div>
         <div class="gauge__labels mdl-typography__headline">
@@ -519,7 +519,7 @@
         	<div class="gauge__marker"></div>
         	<div class="gauge__background"></div>
         	<div class="gauge__center"></div>
-        	<div class="gauge__data"></div>
+        	<div class="gauge__data" id="gaugeDataColor4"></div>
         	<div class="gauge__needle"></div>
         </div>
         <div class="gauge__labels mdl-typography__headline">
@@ -535,7 +535,7 @@
         	<div class="gauge__marker"></div>
         	<div class="gauge__background"></div>
         	<div class="gauge__center"></div>
-        	<div class="gauge__data"></div>
+        	<div class="gauge__data" id="gaugeDataColor5"></div>
         	<div class="gauge__needle"></div>
         </div>
         <div class="gauge__labels mdl-typography__headline">
@@ -568,27 +568,73 @@
 	var __energy = database.ref(firebaseKey + '/billing/E');
 		
 	__voltage.on('value', function(snapshot){
-		gauge.value(snapshot.val()/120);
+		var __tmpValue = snapshot.val()/120;
+		gauge.value(__tmpValue);
+		console.log("spin " + __tmpValue);
+		if(__tmpValue > 0.9)
+		{
+			document.getElementById("gaugeDataColor").style.backgroundColor = "#ED3D3D";
+		}
+		else if(__tmpValue > 0.7)
+		{
+			document.getElementById("gaugeDataColor").style.backgroundColor = "#F6F641";
+		}
 		document.getElementById("gaugeValue").innerHTML = snapshot.val() + " V";
 	});
 	
 	__current.on('value', function(snapshot){
-		gauge2.value(snapshot.val());
+		var __tmpValue = snapshot.val();
+		gauge2.value(__tmpValue);
+		if(__tmpValue > 0.8)
+		{
+			document.getElementById("gaugeDataColor2").style.backgroundColor = "#ED3D3D";
+		}
+		else if(__tmpValue > 0.5)
+		{
+			document.getElementById("gaugeDataColor2").style.backgroundColor = "#F6F641";
+		}
 		document.getElementById("gauge2Value").innerHTML = snapshot.val() + " A";
 	});
 	
 	__pf.on('value', function(snapshot){
-		gauge3.value(snapshot.val());
+		var __tmpValue = snapshot.val();
+		gauge3.value(__tmpValue);
+		if(__tmpValue < 0.5)
+		{
+			document.getElementById("gaugeDataColor3").style.backgroundColor = "#ED3D3D";
+		}
+		else if(__tmpValue < 0.7)
+		{
+			document.getElementById("gaugeDataColor3").style.backgroundColor = "#F6F641";
+		}
 		document.getElementById("gauge3Value").innerHTML = snapshot.val();
 	});
 	
 	__power.on('value', function(snapshot){
-		gauge4.value(snapshot.val());
+		var __tmpValue = snapshot.val();
+		gauge4.value(__tmpValue);
+		if(__tmpValue > 0.8)
+		{
+			document.getElementById("gaugeDataColor4").style.backgroundColor = "#ED3D3D";
+		}
+		else if(__tmpValue > 0.5)
+		{
+			document.getElementById("gaugeDataColor4").style.backgroundColor = "#F6F641";
+		}
 		document.getElementById("gauge4Value").innerHTML = snapshot.val() + " W";
 	});
 	
 	__energy.on('value', function(snapshot){
-		gauge5.value(snapshot.val());
+		var __tmpValue = snapshot.val()/10;
+		gauge5.value(__tmpValue);
+		if(__tmpValue > 0.8)
+		{
+			document.getElementById("gaugeDataColor5").style.backgroundColor = "#ED3D3D";
+		}
+		else if(__tmpValue > 0.5)
+		{
+			document.getElementById("gaugeDataColor5").style.backgroundColor = "#F6F641";
+		}
 		document.getElementById("gauge5Value").innerHTML = snapshot.val() + " kWh";
 	});
 	

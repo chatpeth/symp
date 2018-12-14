@@ -9,7 +9,7 @@
         		<div class="gauge__marker"></div>
         		<div class="gauge__background"></div>
         		<div class="gauge__center"></div>
-        		<div class="gauge__data"></div>
+        		<div class="gauge__data" id="gaugeDataColor"></div>
         		<div class="gauge__needle"></div>
         	</div>
         	<div class="gauge__labels mdl-typography__headline">
@@ -26,9 +26,17 @@
 			function addValue(){
 				
 				tmp = tmp + 0.1;
-				console.log(tmp);
 				gauge.value(tmp);
-			}
+				
+				if(tmp > 0.8)
+				{
+					document.getElementById("gaugeDataColor").style.backgroundColor = "#ED3D3D";
+				}
+				else if(tmp > 0.5)
+				{
+					document.getElementById("gaugeDataColor").style.backgroundColor = "#F6F641";
+				}
+		}
 		</script>
 		<button class="addValue" onclick="addValue()">Add</button>
 	</body>
