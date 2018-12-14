@@ -404,9 +404,8 @@
 			
 			vertualRealtime();
 		}
-
-		
 		</script>
+		
 	</head>
 	
 	<body>
@@ -429,8 +428,8 @@
 		<option value="scatterWithTrend">Trend</option>
 	</select><br>
 	
-	<p id="parameter1_lbl">Parameter1:</p>
-	<select id="parameter1">
+	<p id="parameter1_lbl" >Parameter1:</p>
+	<select id="parameter1" onchange="vertualRealtime()">
 		<option value="C-Voltage" >V</option>
 		<option value="B-Current" >I</option>
 		<option value="D-Power Factor" >PF</option>
@@ -439,8 +438,8 @@
 		<option value="H-Peak" >Peak</option>
 	</select>
 	
-	<p id="parameter2_lbl">Parameter2:</p>
-	<select id="parameter2">
+	<p id="parameter2_lbl" >Parameter2:</p>
+	<select id="parameter2" onchange="vertualRealtime()">
 		<option value="hidden-blank">hide</option>
 		<option value="B-Current" >I</option>
 		<option value="C-Voltage" >V</option>
@@ -579,6 +578,10 @@
 		{
 			document.getElementById("gaugeDataColor").style.backgroundColor = "#F6F641";
 		}
+		else
+		{
+			document.getElementById("gaugeDataColor").style.backgroundColor = "#3F51B5";
+		}
 		document.getElementById("gaugeValue").innerHTML = snapshot.val() + " V";
 	});
 	
@@ -592,6 +595,10 @@
 		else if(__tmpValue > 0.5)
 		{
 			document.getElementById("gaugeDataColor2").style.backgroundColor = "#F6F641";
+		}
+		else
+		{
+			document.getElementById("gaugeDataColor2").style.backgroundColor = "#3F51B5";
 		}
 		document.getElementById("gauge2Value").innerHTML = snapshot.val() + " A";
 	});
@@ -607,6 +614,10 @@
 		{
 			document.getElementById("gaugeDataColor3").style.backgroundColor = "#F6F641";
 		}
+		else
+		{
+			document.getElementById("gaugeDataColor3").style.backgroundColor = "#3F51B5";
+		}
 		document.getElementById("gauge3Value").innerHTML = snapshot.val();
 	});
 	
@@ -621,6 +632,10 @@
 		{
 			document.getElementById("gaugeDataColor4").style.backgroundColor = "#F6F641";
 		}
+		else
+		{
+			document.getElementById("gaugeDataColor4").style.backgroundColor = "#3F51B5";
+		}
 		document.getElementById("gauge4Value").innerHTML = snapshot.val() + " W";
 	});
 	
@@ -634,6 +649,10 @@
 		else if(__tmpValue > 0.5)
 		{
 			document.getElementById("gaugeDataColor5").style.backgroundColor = "#F6F641";
+		}
+		else
+		{
+			document.getElementById("gaugeDataColor5").style.backgroundColor = "#3F51B5";
 		}
 		document.getElementById("gauge5Value").innerHTML = snapshot.val() + " kWh";
 	});
