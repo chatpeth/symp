@@ -570,11 +570,11 @@
 		var __tmpValue = snapshot.val()/120;
 		gauge.value(__tmpValue);
 		console.log("spin " + __tmpValue);
-		if(__tmpValue > 0.95)
+		if(snapshot.val() > 115)
 		{
 			document.getElementById("gaugeDataColor").style.backgroundColor = "#ED3D3D";
 		}
-		else if(__tmpValue > 0.9)
+		else if(snapshot.val() > 113)
 		{
 			document.getElementById("gaugeDataColor").style.backgroundColor = "#F6F641";
 		}
