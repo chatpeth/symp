@@ -62,6 +62,10 @@ server.get('/design', function(req, res){
   res.sendFile(__dirname + "/mycss.html");
 });
 
+server.get('/mqtt', function(req, res){
+  console.log(__dirname);
+  res.sendFile(__dirname + "/mymqtt.html");
+});
 //login
 server.post('/home', function(req, res){
 
