@@ -40,7 +40,9 @@
   // called when the client loses its connection
   function onConnectionLost(responseObject) {
     if (responseObject.errorCode !== 0) {
-      console.log("onConnectionLost:"+responseObject.errorMessage);
+		console.log("onConnectionLost:"+responseObject.errorMessage);
+		
+	  
     }
   }
 
@@ -52,14 +54,22 @@
 </head>
 <body>
 <script type="text/javascript">
-function sub(){
+function onPub(){
 	var topic = document.getElementById("topic").value;
+	var msg = document.getElementById("msg").value;
+	pub(topic, msg)
+}
+
+function onSub(){
+	var topic = document.getElementById("topic").value;
+	sub(topic);
+}
+function sub(topic){
 	client.subscribe(topic);
 	console.log("subscribe for " + topic);
 }
-function pub(){
-	var topic = document.getElementById("topic").value;
-	var msg = document.getElementById("msg").value;
+function pub(topic, msg){
+	
 	message = new Paho.MQTT.Message(msg);
     message.destinationName = topic;
     client.send(message);
@@ -69,8 +79,8 @@ function pub(){
 <div class "setup" id="setting">
 Topic: <input type="text" id="topic" value="ack">
 Message: <input type="text" id="msg" value="hello">
-<button class="setup" id="sub" onclick="sub()">Subscribe</button>
-<button class="setup" id="pub" onclick="pub()">Publish</button>
+<button class="setup" id="sub" onclick="onSub()">Subscribe</button>
+<button class="setup" id="pub" onclick="onPub()">Publish</button>
 </div>
 </body>
 </html>
