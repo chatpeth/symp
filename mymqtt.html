@@ -27,28 +27,37 @@
   function onConnect() {
     // Once a connection has been made, make a subscription and send a message.
     console.log("onConnect");
-    client.subscribe("/cloudmqtt");
-    message = new Paho.MQTT.Message("Hello CloudMQTT");
-    message.destinationName = "/cloudmqtt";
+    client.subscribe("res/aloft/rm100/op");
+    message = new Paho.MQTT.Message("hello");
+    message.destinationName = "req/aloft/rm100";
     client.send(message);
   }
 
   function doFail(e){
-    console.log(e);
+    console.log("Failed");
+	console.log(e);
   }
 
   // called when the client loses its connection
   function onConnectionLost(responseObject) {
     if (responseObject.errorCode !== 0) {
 		console.log("onConnectionLost:"+responseObject.errorMessage);
-		
+		location.reload();
 	  
     }
   }
 
   // called when a message arrives
   function onMessageArrived(message) {
-    console.log("onMessageArrived:"+message.payloadString);
+    var topic = message.destinationName;
+	var payload = message.payloadString;
+	console.log("onMessageArrived " + "topic: " + topic + ", payload: " + payload);
+	if(topic == "res/aloft/rm100/op")
+	{
+		console.log("op set to " + payload);
+		document.getElementById("msg").value = payload.toString();;
+	}
+	
   }
 </script>
 </head>
@@ -77,8 +86,8 @@ function pub(topic, msg){
 }
 </script>
 <div class "setup" id="setting">
-Topic: <input type="text" id="topic" value="ack">
-Message: <input type="text" id="msg" value="hello">
+Topic: <input type="text" id="topic" value="aloft/rm100/op">
+Message: <input type="text" id="msg" value="1">
 <button class="setup" id="sub" onclick="onSub()">Subscribe</button>
 <button class="setup" id="pub" onclick="onPub()">Publish</button>
 </div>
