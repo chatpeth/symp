@@ -50,6 +50,15 @@
 	client.subscribe(helloRes + "h1");
 	client.subscribe(helloRes + "h2");
 	
+	client.subscribe(helloRes + "c33");
+	client.subscribe(helloRes + "c34");
+	client.subscribe(helloRes + "c35");
+	client.subscribe(helloRes + "c36");
+	client.subscribe(helloRes + "c37");
+	client.subscribe(helloRes + "c21");
+	client.subscribe(helloRes + "c30");
+	client.subscribe(helloRes + "c41");
+	
 	client.subscribe(deviceLocation + "op");
 	client.subscribe(deviceLocation + "c");
 	client.subscribe(deviceLocation + "sh");
@@ -69,6 +78,16 @@
 	client.subscribe(deviceLocation + "hu");
 	client.subscribe(deviceLocation + "h1");
 	client.subscribe(deviceLocation + "h2");
+	
+	client.subscribe(deviceLocation + "c33");
+	client.subscribe(deviceLocation + "c34");
+	client.subscribe(deviceLocation + "c35");
+	client.subscribe(deviceLocation + "c36");
+	client.subscribe(deviceLocation + "c37");
+	client.subscribe(deviceLocation + "c21");
+	client.subscribe(deviceLocation + "c30");
+	client.subscribe(deviceLocation + "c41");
+	
 	
     message = new Paho.MQTT.Message("hello");
     message.destinationName = helloReq;
@@ -98,17 +117,36 @@
 	
 	var checkGUI = topic.split("/")[0];
 	console.log("checkGUI= " + checkGUI);
+	msg = payload.toString();
+	if(msg == "true")
+	{
+		msg = "yes";
+	}
+	else if(msg == "false")
+	{
+		msg = "no";
+	}
+	
+	
 	if(checkGUI == "res")
 	{
 		var rowId = topic.replace(helloRes, "");
 		console.log("Update GUI of " + rowId);
-		document.getElementById(rowId).innerHTML = payload.toString();
+		if(rowId == "en")
+		{
+			console.log("db0x01");
+			document.getElementById("en").innerHTML = "Time door open: " + msg;
+		}
+		else
+		{
+			document.getElementById(rowId).innerHTML = msg;
+		}
 	}
 	else
 	{
 		var rowId = topic.replace(deviceLocation, "");
 		console.log("Update GUI of " + rowId);
-		document.getElementById(rowId).innerHTML = payload.toString();
+		document.getElementById(rowId).innerHTML = msg;
 	}
 	
   }
@@ -150,6 +188,35 @@ function setTo(){
 	var payload = document.getElementById("setToValue").value;
 	console.log("set " + topic + " to " + payload);
 	pub(topic, payload)
+}
+
+function factoryReset() {
+
+	var r = confirm("Setting function to default ?");
+	
+	if(r == false)
+	{
+		return;
+	}
+	
+	pub(deviceLocation + "op", "1");
+	pub(deviceLocation + "c", "0");
+	pub(deviceLocation + "sh", "1");
+	pub(deviceLocation + "fi", "3");
+	pub(deviceLocation + "ti", "23");
+	pub(deviceLocation + "fo", "0");
+	pub(deviceLocation + "to", "27");
+	pub(deviceLocation + "tu", "32");
+	pub(deviceLocation + "td", "16");
+	pub(deviceLocation + "_o", "20");
+	pub(deviceLocation + "_c", "60");
+	pub(deviceLocation + "co", "45");
+	pub(deviceLocation + "_d", "30");
+	pub(deviceLocation + "li", "20");
+	pub(deviceLocation + "hd", "40");
+	pub(deviceLocation + "hu", "80");
+	pub(deviceLocation + "h1", "1");
+	pub(deviceLocation + "h2", "2");
 }
 </script>
 <div class="setup" id="setting">
@@ -245,10 +312,6 @@ set to: <input type="text" id="setToValue" value="0">
     <td id="li"></td>
   </tr>
   <tr>
-    <td>Time door open</td>
-    <td id="en"></td>
-  </tr>
-  <tr>
     <td>Humidity Minimum(%)</td>
     <td id="hd"></td>
   </tr>
@@ -268,7 +331,7 @@ set to: <input type="text" id="setToValue" value="0">
 	<p class="holdingRegister" id="en">Time door open: </p>
 </div>
 <div class="reset" id="resetToDefault">
-	<button class="reset" id="resetBtn">reset</b>
+	<button class="reset" id="resetBtn" onclick="factoryReset()">reset</b>
 </div>
 
 <div class="coil" id="readCoil">
@@ -279,39 +342,35 @@ set to: <input type="text" id="setToValue" value="0">
 	</tr>
 	<tr>
 		<td>Motion1 Error</td>
-		<td id="c33">No</td>
-	</tr>
-	<tr>
-		<td>Motion1 Error</td>
-		<td id="c33">No</td>
+		<td id="c33"></td>
 	</tr>
 	<tr>
 		<td>Motion2 Error</td>
-		<td id="c34">No</td>
+		<td id="c34"></td>
 	</tr>
 	<tr>
 		<td>Motion3 Error</td>
-		<td id="c35">No</td>
+		<td id="c35"></td>
 	</tr>
 	<tr>
 		<td>Motion4 Error</td>
-		<td id="c36">No</td>
+		<td id="c36"></td>
 	</tr>
 	<tr>
 		<td>Motion5 Error</td>
-		<td id="c37">No</td>
+		<td id="c37"></td>
 	</tr>
 	<tr>
 		<td>In out room</td>
-		<td id="c21">No</td>
+		<td id="c21"></td>
 	</tr>
 	<tr>
 		<td>Keycard</td>
-		<td id="c30">No</td>
+		<td id="c30"></td>
 	</tr>
 	<tr>
 		<td>Magnetic</td>
-		<td id="c41">No</td>
+		<td id="c41"></td>
 	</tr>
 </table>
 </div>
