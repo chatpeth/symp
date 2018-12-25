@@ -198,7 +198,7 @@
 		function handleQueryResponse(response) {
 			console.log("drawing graph");
 			if (response.isError()) {
-				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+				//alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 				return;
 			}
 			var data = response.getDataTable();
@@ -291,7 +291,7 @@
 		
 		function dataAnalysisResponse(response){
 			if (response.isError()) {
-				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+				// alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 				return;
 			}
 			var data = response.getDataTable();
@@ -318,7 +318,7 @@
 		
 		function getOffResponse(response){
 			if (response.isError()) {
-				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+				// alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 				return;
 			}
 			var data = response.getDataTable();
@@ -336,7 +336,7 @@
 		}
 		function testQueryResponse(response){
 			if (response.isError()) {
-				alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+				//alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 				return;
 			}
 			var data = response.getDataTable();
@@ -872,6 +872,8 @@
 		pub(deviceLocation + "hu", "80");
 		pub(deviceLocation + "h1", "1");
 		pub(deviceLocation + "h2", "2");
+		
+		pub(deviceLocation + "fd", "y");
 	}
 	</script>
 	
