@@ -66,6 +66,11 @@ server.get('/mqtt', function(req, res){
   console.log(__dirname);
   res.sendFile(__dirname + "/mymqtt.html");
 });
+
+server.get('/rm100', function(req, res){
+  console.log(__dirname);
+  res.sendFile(__dirname + "/rm100.html");
+});
 //login
 server.post('/home', function(req, res){
 
