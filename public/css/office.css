@@ -255,7 +255,7 @@ header.site-header {
 	margin-left: 120px;
 	margin-right: 120px;
 	
-	width: 720;
+	width: 80%;
 }
 
 #parameterDiv, #setting, #readCoil , #resetToDefault{
@@ -280,11 +280,11 @@ header.site-header {
 }
 
 #paramTable tr:nth-child(even) {
-	background-color: #F0F0F3;
+	
 }
 
 #paramTable tr:hover {
-	background-color: #dddddd;
+	background-color: #F7F7FB;
 }
 
 #paramTable th {
@@ -307,11 +307,11 @@ header.site-header {
 	padding: 8px;
 }
 #coilTable tr:nth-child(even){
-	background-color: #F0F0F3;
+	
 }
 
 #coilTable tr:hover {
-	background-color: #dddddd;
+	background-color: #F7F7FB;
 }
 
 #coilTable th {
@@ -338,4 +338,10 @@ header.site-header {
 
 #setTo_lbl {
 	margin-left: 30px;
+}
+
+#en {
+	background-color: #F7F7FB;
+	height: 20px;
+	padding: 4px;
 }
