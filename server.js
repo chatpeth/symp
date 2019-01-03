@@ -13,7 +13,7 @@ server.use(express.static('public'));
 server.use(bodyParser.urlencoded({ extended: false }));
 
 server.get('/', function(req, res){
-  console.log(__dirname);
+  
   res.sendFile(__dirname + "/" + "homepage.html");
 });
 
@@ -23,12 +23,12 @@ server.get('/index', function(req, res){
 });
 
 server.get('/powermeter', function(req, res){
-  console.log(__dirname);
+  
   res.sendFile(__dirname + "/" + "powermeter.html");
 });
 
 server.get('/office', function(req, res){
-  console.log(__dirname);
+  
   res.sendFile(__dirname + "/" + "office.html");
 });
 
@@ -38,12 +38,12 @@ server.get('/gauge', function(req, res){
 });
 
 server.get('/live/powermeter', function(req, res){
-  console.log(__dirname);
+  
   res.sendFile(__dirname + "/live/" + "powermeter.html");
 });
 
 server.get('/live/rm266', function(req, res){
-  console.log(__dirname);
+  
   res.sendFile(__dirname + "/live/" + "rm266.html");
 });
 
@@ -53,27 +53,27 @@ server.get('/rm266', function(req, res){
 });
 
 server.get('/bill', function(req, res){
-  console.log(__dirname);
+ 
   res.sendFile(__dirname + "/bill.html");
 });
 
 server.get('/design', function(req, res){
-  console.log(__dirname);
+  
   res.sendFile(__dirname + "/mycss.html");
 });
 
 server.get('/mqtt', function(req, res){
-  console.log(__dirname);
+  
   res.sendFile(__dirname + "/mymqtt.html");
 });
 
 server.get('/rm100', function(req, res){
-  console.log(__dirname);
+  
   res.sendFile(__dirname + "/rm100.html");
 });
 
 server.get('/symp', function(req, res){
-  console.log(__dirname);
+  console.log("req symp received");
   res.sendFile(__dirname + "/symp.html");
 });
 //login

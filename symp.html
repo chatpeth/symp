@@ -106,6 +106,7 @@
 			{
 				_analyTq = "SELECT " + groupRow + ", MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + "), MAX(" + arrTq2[0] +
 				"), AVG(" + arrTq2[0] + "), MIN(" + arrTq2[0] + ") group by " + groupRow;
+				console.log("db0x03");
 				tmpTq = "SELECT " + UnixTsCol + ", " + tmpTq1 + ", " + tmpTq2;
 			}
 			
@@ -386,8 +387,10 @@
 				}
 			}
 			else
-			{"SELECT " + groupRow + ", MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + "), MAX(" + arrTq2[0] +
+			{	
+				_analyTq = "SELECT " + groupRow + ", MAX(" + arrTq1[0] + "), AVG(" + arrTq1[0] + "), MIN(" + arrTq1[0] + "), MAX(" + arrTq2[0] +
 				"), AVG(" + arrTq2[0] + "), MIN(" + arrTq2[0] + ") WHERE (A > datetime \'" + startDate + "\') AND (A < datetime \'" + endDate + "\') group by " + groupRow;
+				console.log("db0x07");
 				var dateTq1 = "SELECT " + UnixTsCol + ", " + tmpTq1 + "," + tmpTq2 + " WHERE (A > " + "datetime \'" + startDate + "\') and (A < datetime \'" + endDate + "\')";
 			}	
 						
@@ -692,11 +695,11 @@
 	__tempset.on('value', function(snapshot){
 		var __tmpValue = snapshot.val()/25;
 		gauge2.value(__tmpValue);
-		if(__tmpValue > 0.8)
+		if(snapshot.val() > 24)
 		{
 			document.getElementById("gaugeDataColor2").style.backgroundColor = "#ED3D3D";
 		}
-		else if(__tmpValue > 0.6)
+		else if(snapshot.val()> 23)
 		{
 			document.getElementById("gaugeDataColor2").style.backgroundColor = "#F6F641";
 		}
@@ -710,11 +713,11 @@
 	__roomtemp.on('value', function(snapshot){
 		var __tmpValue = snapshot.val()/25;
 		gauge3.value(__tmpValue);
-		if(__tmpValue > 0.8)
+		if(snapshot.val() > 23)
 		{
 			document.getElementById("gaugeDataColor3").style.backgroundColor = "#ED3D3D";
 		}
-		else if(__tmpValue > 0.6)
+		else if(snapshot.val() > 22)
 		{
 			document.getElementById("gaugeDataColor3").style.backgroundColor = "#F6F641";
 		}
