@@ -674,26 +674,52 @@
 	var __roomtemp = database.ref(firebaseKey + '/symp/demo/roomtemp');
 
 	__fanspeed.on('value', function(snapshot){
-		var __tmpValue = snapshot.val()/1200;
+		var __tmpValue = snapshot.val()/4;
+		var gauge_lbl;
 		gauge.value(__tmpValue);
 		//console.log("spin " + __tmpValue);
-		if(snapshot.val() > 800)
+		if(snapshot.val() == 3)
 		{
 			document.getElementById("gaugeDataColor").style.backgroundColor = "#ED3D3D";
 		}
-		else if(snapshot.val() > 500)
+		else if(snapshot.val() == 2)
 		{
 			document.getElementById("gaugeDataColor").style.backgroundColor = "#F6F641";
 		}
-		else
+		else if(snapshot.val() == 1)
 		{
 			document.getElementById("gaugeDataColor").style.backgroundColor = "#44EFEF";
 		}
-		document.getElementById("gaugeValue").innerHTML = snapshot.val() + " RPM";
+		else
+		{
+			document.getElementById("gaugeDataColor").style.backgroundColor = "#E2E1E2";
+		}
+		
+		if(snapshot.val() == 0)
+		{
+			gauge_lbl = "Level: Off"
+		}
+		else if(snapshot.val() == 1)
+		{
+			gauge_lbl = "Level: Low"
+		}
+		else if(snapshot.val() == 2)
+		{
+			gauge_lbl = "Level: Medium"
+		}
+		else if(snapshot.val() == 3)
+		{
+			gauge_lbl = "Level: High"
+		}
+		else
+		{
+			gauge_lbl = "Level: Auto"
+		}
+		document.getElementById("gaugeValue").innerHTML = gauge_lbl;
 	});
 	
 	__tempset.on('value', function(snapshot){
-		var __tmpValue = snapshot.val()/25;
+		var __tmpValue = snapshot.val()/35;
 		gauge2.value(__tmpValue);
 		if(snapshot.val() > 24)
 		{
@@ -711,7 +737,7 @@
 	});
 	
 	__roomtemp.on('value', function(snapshot){
-		var __tmpValue = snapshot.val()/25;
+		var __tmpValue = snapshot.val()/35;
 		gauge3.value(__tmpValue);
 		if(snapshot.val() > 23)
 		{
