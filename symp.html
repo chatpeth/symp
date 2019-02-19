@@ -69,12 +69,12 @@
 			var limit = document.getElementById("limit").value;
 			var offset = document.getElementById("offset").value;
 			var UnixTsCol;
-			var groupRow = "E";
+			var groupRow = "D";
 			// Detect type of chart
 			var chartType = document.getElementById("chartType").value;
 			if(chartType == "scatterWithTrend")
 			{
-				UnixTsCol = "F";
+				UnixTsCol = "E";
 			}
 			else
 			{
@@ -156,7 +156,7 @@
 				return;
 			}
 			tmpOffset = tmpOffset + 1;
-			//console.log("vertualRealtime: tmpOffset= " + tmpOffset);
+			console.log("vertualRealtime: tmpOffset= " + tmpOffset);
 			var queryString = encodeURIComponent(tq);
 			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + queryString);
 			try
@@ -355,12 +355,12 @@
 			var tmpTq2 = arrTq2[0];
 			var _analyTq;
 			var UnixTsCol;
-			var groupRow = "E";
+			var groupRow = "D";
 			// Detect type of chart
 			var chartType = document.getElementById("chartType").value;
 			if(chartType == "scatterWithTrend")
 			{
-				UnixTsCol = "F";
+				UnixTsCol = "E";
 			}
 			else
 			{
@@ -624,7 +624,7 @@
 	<body>
 		
 	<header class="site-header">
-	<h1>Chp-lab</h1>
+	<h1>Symposium IoT</h1>
 	</header>
 	
 	
@@ -643,18 +643,18 @@
 	
 	<p id="parameter1_lbl" >Parameter1:</p>
 	<select id="parameter1" onchange="vertualRealtime()">
-		<option value="D-Roomtemp" >rt</option>
-		<option value="C-Tempset" >ts</option>
-		<option value="B-Fanspeed" >fs</option>
+		<option value="B-Temp" >temp</option>
+		<option value="C-Humidity" >humidity</option>
+		
 		
 	</select>
 	
 	<p id="parameter2_lbl" >Parameter2:</p>
 	<select id="parameter2" onchange="vertualRealtime()">
+		<option value="C-Humidity" >humidity</option>
+		<option value="B-Temp" >temp</option>
 		<option value="hidden-blank">hide</option>
-		<option value="B-Fanspeed" >fs</option>
-		<option value="C-Tempset" >ts</option>
-		<option value="D-Roomtemp" >rt</option>
+		
 	</select><br>
 	
 	<p id="startDate_lbl">Start Date: </p><input type="text" id="startDate" value="yyyy-mm-dd"><br>
@@ -1047,11 +1047,14 @@
     <td id="Humidity_compensate"></td>
   </tr>
 </table>
-	<p class="holdingRegister" id="en">Time door open: </p>
+	
 </div>
+<!--
 <div class="reset" id="resetToDefault">
+	
 	<button class="reset" id="resetBtn" onclick="factoryReset()">reset</b>
 </div>
+-->
 
 <div class="coil" id="readCoil">
 <table class="coil" id="coilTable">
