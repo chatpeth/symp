@@ -572,14 +572,75 @@
 			
 			//console.log("onMessageArrived " + "topic: " + topic + ", payload: " + payload);
 			var checkGUI = topic.split("/")[0];
+			var shortTopic = topic.split("/")[3];
+			var tmpTopic = shortTopic.split("n")[0];
+			var relayTopic = shortTopic.split("y")[0];
+			//console.log("door= " + shortTopic);
 			msg = payload.toString();
 			if(msg == "true")
 			{
-				msg = "yes";
+				
+				if(shortTopic == "Magnetic_door")
+				{
+					console.log("db0x100");
+					msg = "open";
+				}
+				else if(shortTopic == "Key_Card")
+				{
+					msg = "key card inserted";
+				}
+				else if(tmpTopic == "Motio")
+				{
+					msg = "motion detected";
+				}
+				else if(shortTopic == "RCU_Status")
+				{
+					msg = "RCU power supply ok";
+				}
+				else if(shortTopic == "Welcome_mode")
+				{
+					msg = "on";
+				}
+				else if(relayTopic == "Rela")
+				{
+					msg = "open";
+				}
+				else
+				{
+					msg = "yes";
+				}
 			}
 			else if(msg == "false")
 			{
-				msg = "no";
+				if(shortTopic == "Magnetic_door")
+				{
+					console.log("db0x101");
+					msg = "Close";
+				}
+				else if(shortTopic == "Key_Card")
+				{
+					msg = "key card removed";
+				}
+				else if(tmpTopic == "Motio")
+				{
+					msg = "motion not detected";
+				}
+				else if(shortTopic == "RCU_Status")
+				{
+					msg = "RCU no power supply";
+				}
+				else if(shortTopic == "Welcome_mode")
+				{
+					msg = "off";
+				}
+				else if(relayTopic == "Rela")
+				{
+					msg = "close";
+				}
+				else
+				{
+					msg = "no";
+				}
 			}
 			
 			if(checkGUI == "res")
