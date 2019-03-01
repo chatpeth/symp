@@ -536,10 +536,16 @@
 			client.subscribe(deviceLocation + "Active_mode");
 			client.subscribe(deviceLocation + "Work_mode");
 			client.subscribe(deviceLocation + "Off_mode");
+			helloFunc();
+			setInterval(helloFunc, 5000);
 			
+		}
+		
+		function helloFunc(){
 			message = new Paho.MQTT.Message("hello");
 			message.destinationName = helloReq;
 			client.send(message);
+			console.log("hello");
 		}
 
 		function doFail(e){
