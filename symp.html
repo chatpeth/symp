@@ -583,7 +583,7 @@
 				if(shortTopic == "Magnetic_door")
 				{
 					console.log("db0x100");
-					msg = "open";
+					msg = "door opened";
 				}
 				else if(shortTopic == "Key_Card")
 				{
@@ -603,7 +603,7 @@
 				}
 				else if(relayTopic == "Rela")
 				{
-					msg = "open";
+					msg = "opened";
 				}
 				else
 				{
@@ -615,7 +615,7 @@
 				if(shortTopic == "Magnetic_door")
 				{
 					console.log("db0x101");
-					msg = "Close";
+					msg = "door closed";
 				}
 				else if(shortTopic == "Key_Card")
 				{
@@ -635,7 +635,7 @@
 				}
 				else if(relayTopic == "Rela")
 				{
-					msg = "close";
+					msg = "closed";
 				}
 				else
 				{
@@ -1166,7 +1166,7 @@
 		<td id="Key_Card"></td>
 	</tr>
 	<tr>
-		<td>Magnetic door</td>
+		<td>Magnetic door sensor</td>
 		<td id="Magnetic_door"></td>
 	</tr>
 	<tr>
