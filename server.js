@@ -76,6 +76,12 @@ server.get('/symp', function(req, res){
   console.log("req symp received");
   res.sendFile(__dirname + "/symp.html");
 });
+
+server.get('/5610110106', function(req, res){
+  console.log("req 5610110106 received");
+  res.sendFile(__dirname + "/5610110106.html");
+});
+
 //login
 server.post('/home', function(req, res){
 
