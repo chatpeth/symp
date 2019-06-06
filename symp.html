@@ -413,10 +413,11 @@
 		var helloReq = "req/aloft/rm100";
 		var helloRes = "res/aloft/rm100/";
 		
-		
+		let cid = Math.random().toString(36).substring(7);
+		console.log("random", cid);
 		
 		// Create a client instance
-		client = new Paho.MQTT.Client("m10.cloudmqtt.com", 37606, "ee5610110106");
+		client = new Paho.MQTT.Client("m10.cloudmqtt.com", 37606, cid);
 		//Example client = new Paho.MQTT.Client("m11.cloudmqtt.com", 32903, "web_" + parseInt(Math.random() * 100, 10));
 
 		// set callback handlers
