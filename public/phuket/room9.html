@@ -33,7 +33,7 @@
 		</script>
 		
 		<script type="text/javascript">
-		var sid = '1cjy2FDGMQr_fyu9rmVeO1EhPDRSXANozl9S5MWDd6mg';
+		var sid = '1cQuHrtvMbYukbTHewMElMzbX7kmJWryPb6Kx6hpcQYA';
 		var tmpOffset = 0;
 		var realtimeSpan = 15;
 		google.charts.load("current", {packages:["corechart"]});
@@ -43,7 +43,7 @@
 		google.charts.setOnLoadCallback(getOffset);
 		
 		
-		var cname = "Room316 @phuket";
+		var cname = "Demo Room @phuket";
 		function setDate(){
 			var d = new Date();
 			var _today = d.getFullYear() + "-" + (d.getMonth() + 1).toString() + "-" + d.getDate() + " 00:00:00";
@@ -122,12 +122,12 @@
 			
 			console.log("tmpTq" + tmpTq);
 			var queryString = encodeURIComponent(tmpTq);
-			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=573155138&headers=1&tq=' + queryString);
+			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + queryString);
 			query.send(handleQueryResponse);
 			
 			// Data Analysis
 			var _analyQueryString = encodeURIComponent(_analyTq);
-			var _analyQuery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=573155138&headers=1&tq=' + _analyQueryString);
+			var _analyQuery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + _analyQueryString);
 			_analyQuery.send(dataAnalysisResponse);
 			
 			vertualRealtime();
@@ -158,7 +158,7 @@
 			tmpOffset = tmpOffset + 1;
 			console.log("vertualRealtime: tmpOffset= " + tmpOffset);
 			var queryString = encodeURIComponent(tq);
-			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=573155138&headers=1&tq=' + queryString);
+			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + queryString);
 			try
 			{
 				query.send(realtimeResponse);
@@ -314,7 +314,7 @@
 		function getOffset(qMsg){
 			qMsg = "SELECT COUNT(A)";
 			var queryString = encodeURIComponent(qMsg);
-			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=573155138&headers=1&tq=' + queryString);
+			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + queryString);
 			query.send(getOffResponse);
 		}
 		
@@ -333,7 +333,7 @@
 		function testQuery(testMsg){
 			console.log("Start query: " + testMsg);
 			var queryString = encodeURIComponent(testMsg);
-			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=573155138&headers=1&tq=' + queryString);
+			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + queryString);
 			query.send(testQueryResponse);
 		}
 		function testQueryResponse(response){
@@ -397,21 +397,21 @@
 						
 			console.log("db0x06: dateTq1= " + dateTq1);
 			var queryString = encodeURIComponent(dateTq1);
-			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=573155138&headers=1&tq=' + queryString);
+			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + queryString);
 			query.send(handleQueryResponse);
 			
 			// Data Analysis
 			var _analyQueryString = encodeURIComponent(_analyTq);
-			var _analyQuery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=573155138&headers=1&tq=' + _analyQueryString);
+			var _analyQuery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=0&headers=1&tq=' + _analyQueryString);
 			_analyQuery.send(dataAnalysisResponse);
 			
 			vertualRealtime();
 		}
 		</script>
 		<script type="text/javascript">
-		var deviceLocation = "phuket/rm2/";
-		var helloReq = "req/phuket/rm2";
-		var helloRes = "res/phuket/rm2/";
+		var deviceLocation = "phuket/rm9/";
+		var helloReq = "req/phuket/rm9";
+		var helloRes = "res/phuket/rm9/";
 		
 		let cid = Math.random().toString(36).substring(7);
 		console.log("random", cid);
