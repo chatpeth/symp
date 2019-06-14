@@ -127,7 +127,7 @@
 			
 			// Data Analysis
 			var _analyQueryString = encodeURIComponent(_analyTq);
-			var _analyQuery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=1&headers=1&tq=' + _analyQueryString);
+			var _analyQuery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=1689878132&headers=1&tq=' + _analyQueryString);
 			_analyQuery.send(dataAnalysisResponse);
 			
 			vertualRealtime();
@@ -158,7 +158,7 @@
 			tmpOffset = tmpOffset + 1;
 			console.log("vertualRealtime: tmpOffset= " + tmpOffset);
 			var queryString = encodeURIComponent(tq);
-			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=1&headers=1&tq=' + queryString);
+			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=1689878132&headers=1&tq=' + queryString);
 			try
 			{
 				query.send(realtimeResponse);
@@ -314,7 +314,7 @@
 		function getOffset(qMsg){
 			qMsg = "SELECT COUNT(A)";
 			var queryString = encodeURIComponent(qMsg);
-			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=1&headers=1&tq=' + queryString);
+			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=1689878132&headers=1&tq=' + queryString);
 			query.send(getOffResponse);
 		}
 		
@@ -333,7 +333,7 @@
 		function testQuery(testMsg){
 			console.log("Start query: " + testMsg);
 			var queryString = encodeURIComponent(testMsg);
-			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=1&headers=1&tq=' + queryString);
+			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=1689878132&headers=1&tq=' + queryString);
 			query.send(testQueryResponse);
 		}
 		function testQueryResponse(response){
@@ -397,12 +397,12 @@
 						
 			console.log("db0x06: dateTq1= " + dateTq1);
 			var queryString = encodeURIComponent(dateTq1);
-			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=1&headers=1&tq=' + queryString);
+			var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=1689878132&headers=1&tq=' + queryString);
 			query.send(handleQueryResponse);
 			
 			// Data Analysis
 			var _analyQueryString = encodeURIComponent(_analyTq);
-			var _analyQuery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=1&headers=1&tq=' + _analyQueryString);
+			var _analyQuery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sid + '/gviz/tq?gid=1689878132&headers=1&tq=' + _analyQueryString);
 			_analyQuery.send(dataAnalysisResponse);
 			
 			vertualRealtime();
